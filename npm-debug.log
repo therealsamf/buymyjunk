@@ -1,0 +1,52 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'run-script',
+1 verbose cli   'server-debug' ]
+2 info using npm@3.5.2
+3 info using node@v4.2.6
+4 verbose run-script [ 'preserver-debug', 'server-debug', 'postserver-debug' ]
+5 info lifecycle test@1.0.0~preserver-debug: test@1.0.0
+6 verbose lifecycle test@1.0.0~preserver-debug: unsafe-perm in lifecycle true
+7 verbose lifecycle test@1.0.0~preserver-debug: PATH: /usr/share/npm/bin/node-gyp-bin:/home/samuel_faulkner/Documents/buymyjunk/node_modules/.bin:/usr/local/heroku/bin:/home/samuel_faulkner/miniconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+8 verbose lifecycle test@1.0.0~preserver-debug: CWD: /home/samuel_faulkner/Documents/buymyjunk
+9 silly lifecycle test@1.0.0~preserver-debug: Args: [ '-c', 'babel server/ -d dist' ]
+10 silly lifecycle test@1.0.0~preserver-debug: Returned: code: 0  signal: null
+11 info lifecycle test@1.0.0~server-debug: test@1.0.0
+12 verbose lifecycle test@1.0.0~server-debug: unsafe-perm in lifecycle true
+13 verbose lifecycle test@1.0.0~server-debug: PATH: /usr/share/npm/bin/node-gyp-bin:/home/samuel_faulkner/Documents/buymyjunk/node_modules/.bin:/usr/local/heroku/bin:/home/samuel_faulkner/miniconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+14 verbose lifecycle test@1.0.0~server-debug: CWD: /home/samuel_faulkner/Documents/buymyjunk
+15 silly lifecycle test@1.0.0~server-debug: Args: [ '-c', 'node --debug app.js' ]
+16 silly lifecycle test@1.0.0~server-debug: Returned: code: 1  signal: null
+17 info lifecycle test@1.0.0~server-debug: Failed to exec server-debug script
+18 verbose stack Error: test@1.0.0 server-debug: `node --debug app.js`
+18 verbose stack Exit status 1
+18 verbose stack     at EventEmitter.<anonymous> (/usr/share/npm/lib/utils/lifecycle.js:232:16)
+18 verbose stack     at emitTwo (events.js:87:13)
+18 verbose stack     at EventEmitter.emit (events.js:172:7)
+18 verbose stack     at ChildProcess.<anonymous> (/usr/share/npm/lib/utils/spawn.js:24:14)
+18 verbose stack     at emitTwo (events.js:87:13)
+18 verbose stack     at ChildProcess.emit (events.js:172:7)
+18 verbose stack     at maybeClose (internal/child_process.js:821:16)
+18 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+19 verbose pkgid test@1.0.0
+20 verbose cwd /home/samuel_faulkner/Documents/buymyjunk
+21 error Linux 4.4.0-42-generic
+22 error argv "/usr/bin/nodejs" "/usr/bin/npm" "run-script" "server-debug"
+23 error node v4.2.6
+24 error npm  v3.5.2
+25 error code ELIFECYCLE
+26 error test@1.0.0 server-debug: `node --debug app.js`
+26 error Exit status 1
+27 error Failed at the test@1.0.0 server-debug script 'node --debug app.js'.
+27 error Make sure you have the latest version of node.js and npm installed.
+27 error If you do, this is most likely a problem with the test package,
+27 error not with npm itself.
+27 error Tell the author that this fails on your system:
+27 error     node --debug app.js
+27 error You can get information on how to open an issue for this project with:
+27 error     npm bugs test
+27 error Or if that isn't available, you can get their info via:
+27 error     npm owner ls test
+27 error There is likely additional logging output above.
+28 verbose exit [ 1, true ]

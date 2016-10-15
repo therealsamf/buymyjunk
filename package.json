@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "client-compile": "webpack --watch --progress --colors",
-    "preserver-debug": "babel server/ -d server/dist",
+    "preserver-debug": "babel server/src -d server/dist",
     "server-debug": "node --debug app.js"
   },
   "author": "",

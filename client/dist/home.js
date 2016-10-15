@@ -56,13 +56,21 @@
 
 	var React = __webpack_require__(1);
 	var ReactBootstrap = __webpack_require__(34);
+
 	var Jumbotron = ReactBootstrap.Jumbotron;
 	var FormGroup = ReactBootstrap.FormGroup;
 	var ControlLabel = ReactBootstrap.ControlLabel;
 	var HelpBlock = ReactBootstrap.HelpBlock;
 	var FormControl = ReactBootstrap.FormControl;
+	var Form = ReactBootstrap.Form;
+	var Col = ReactBootstrap.Col;
+	var Checkbox = ReactBootstrap.Checkbox;
+	var Button = ReactBootstrap.Button;
+
 
 	var ReactDom = __webpack_require__(125);
+
+	var Styles = __webpack_require__(401);
 
 	var HomePage = function (_React$Component) {
 	  _inherits(HomePage, _React$Component);
@@ -72,40 +80,78 @@
 
 	    var _this = _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).call(this, props));
 
-	    _this.state = {
-	      'value': ''
-	    };
+	    _this.state = {};
 	    return _this;
 	  }
 
 	  _createClass(HomePage, [{
-	    key: 'handleChange',
-	    value: function handleChange(e) {
-	      this.setState({ 'value': e.target.value });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return React.createElement(
-	        'form',
-	        null,
+	        Jumbotron,
+	        { style: { 'backgroundColor': '#27ae60', 'minWidth': '100%', 'minHeight': screen.height.toString() + 'px' } },
 	        React.createElement(
-	          FormGroup,
-	          {
-	            controlId: 'formBasicText'
-	          },
+	          'h1',
+	          { style: Styles.container },
+	          'Buy My Junk!'
+	        ),
+	        React.createElement(
+	          Form,
+	          { horizontal: true, style: { 'textAlign': 'center', 'marginLeft': '15%' } },
 	          React.createElement(
-	            ControlLabel,
-	            null,
-	            'Working example with validation'
+	            FormGroup,
+	            { controlId: 'formHorizontalEmail' },
+	            React.createElement(
+	              Col,
+	              { componentClass: ControlLabel, sm: 2 },
+	              'Email'
+	            ),
+	            React.createElement(
+	              Col,
+	              { sm: 10 },
+	              React.createElement(FormControl, { type: 'email', placeholder: 'Email' })
+	            )
 	          ),
-	          React.createElement(FormControl, {
-	            type: 'text',
-	            value: this.state.value,
-	            placeholder: 'Enter text',
-	            onChange: this.handleChange.bind(this)
-	          }),
-	          React.createElement(FormControl.Feedback, null)
+	          React.createElement(
+	            FormGroup,
+	            { controlId: 'formHorizontalPassword' },
+	            React.createElement(
+	              Col,
+	              { componentClass: ControlLabel, sm: 2 },
+	              'Password'
+	            ),
+	            React.createElement(
+	              Col,
+	              { sm: 10 },
+	              React.createElement(FormControl, { type: 'password', placeholder: 'Password' })
+	            )
+	          ),
+	          React.createElement(
+	            FormGroup,
+	            null,
+	            React.createElement(
+	              Col,
+	              { smOffset: 2, sm: 10 },
+	              React.createElement(
+	                Checkbox,
+	                null,
+	                'Remember me'
+	              )
+	            )
+	          ),
+	          React.createElement(
+	            FormGroup,
+	            null,
+	            React.createElement(
+	              Col,
+	              { smOffset: 2, sm: 10 },
+	              React.createElement(
+	                Button,
+	                { type: 'submit' },
+	                'Sign in'
+	              )
+	            )
+	          )
 	        )
 	      );
 	    }
@@ -39903,6 +39949,29 @@
 	exports.bootstrapUtils = _bootstrapUtils;
 	exports.createChainedFunction = _createChainedFunction3['default'];
 	exports.ValidComponentChildren = _ValidComponentChildren3['default'];
+
+/***/ },
+/* 401 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var styles = {
+	  'container': {
+	    'fontFace': 'calibri',
+	    'fontWeight': 'bold',
+	    'fontSize': '70px',
+	    'marginTop': '10px',
+	    'marginRight': '10px',
+	    'width': '100%',
+	    'height': '80%',
+	    'justifyContent': 'center',
+	    'textAlign': 'center',
+	    'backgroundColor': '#27ae60'
+	  }
+	};
+
+	module.exports = styles;
 
 /***/ }
 /******/ ]);
