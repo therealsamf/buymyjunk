@@ -56,15 +56,12 @@
 
 	var React = __webpack_require__(1);
 	var ReactBootstrap = __webpack_require__(34);
+
 	var Jumbotron = ReactBootstrap.Jumbotron;
-	var ControlLabel = ReactBootstrap.ControlLabel;
-	var Button = ReactBootstrap.Button;
-	var FormControl = ReactBootstrap.FormControl;
 	var FormGroup = ReactBootstrap.FormGroup;
+	var ControlLabel = ReactBootstrap.ControlLabel;
 	var HelpBlock = ReactBootstrap.HelpBlock;
-	var Form = ReactBootstrap.Form;
-	var Col = ReactBootstrap.Col;
-	var Checkbox = ReactBootstrap.Checkbox;
+	var FormControl = ReactBootstrap.FormControl;
 
 
 	var ReactDom = __webpack_require__(149);

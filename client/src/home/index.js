@@ -1,7 +1,8 @@
 
 const React = require('react');
 const ReactBootstrap = require('react-bootstrap');
-const {Jumbotron, ControlLabel, Button, FormControl, FormGroup, HelpBlock, Form, Col, Checkbox} = ReactBootstrap;
+
+const {Jumbotron, FormGroup, ControlLabel, HelpBlock, FormControl} = ReactBootstrap;
 
 const ReactDom = require('react-dom');
 
