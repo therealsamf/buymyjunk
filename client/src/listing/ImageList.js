@@ -3,6 +3,9 @@
 const React = require('react');
 const {ListGroup, ListGroupItem, Image} = require('react-bootstrap');
 
+const MAX_IMAGE_WIDTH = '250px',
+  MAX_IMAGE_HEIGHT = '250px';
+
 class ImageList extends React.Component {
   constructor(props) {
     super(props);
@@ -13,14 +16,25 @@ class ImageList extends React.Component {
 
   render() {
     var images = new Array();
-    for (var i = 0; i < this.state.urls.length(); i++) {
+    for (var i = 0; i < this.state.urls.length; i++) {
       var url = this.state.urls[i];
-      images.push(<ListGroupItem key={i}><Image src={url} rounded /></ListGroupItem>);
+      images.push(
+        <ListGroupItem key={i}>
+          <Image 
+            style={{
+              'maxWidth': '100%', 
+              'maxHeight': MAX_IMAGE_HEIGHT,
+            }}
+            src={url} 
+            rounded 
+          />
+        </ListGroupItem>
+      );
     }
 
     return (
-      <div style={{'maxHeight': screen.height, 'overflowY': 'scroll'}}>
-        <ListGroup>
+      <div style={{'maxHeight': screen.height}}>
+        <ListGroup style={{'maxHeight': '450px', 'overflowY': 'scroll'}}>
           {images}
         </ListGroup>
       </div>
