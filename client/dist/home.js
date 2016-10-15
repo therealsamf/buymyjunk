@@ -62,6 +62,10 @@
 	var ControlLabel = ReactBootstrap.ControlLabel;
 	var HelpBlock = ReactBootstrap.HelpBlock;
 	var FormControl = ReactBootstrap.FormControl;
+	var Form = ReactBootstrap.Form;
+	var Col = ReactBootstrap.Col;
+	var Checkbox = ReactBootstrap.Checkbox;
+	var Button = ReactBootstrap.Button;
 
 
 	var ReactDom = __webpack_require__(149);
@@ -93,7 +97,7 @@
 	        ),
 	        React.createElement(
 	          Form,
-	          { horizontal: true, style: { 'textAlign': 'center', 'minWidth': '80%' } },
+	          { horizontal: true, style: { 'textAlign': 'center', 'marginLeft': '15%' } },
 	          React.createElement(
 	            FormGroup,
 	            { controlId: 'formHorizontalEmail' },
@@ -40448,7 +40452,7 @@
 	    'height': '80%',
 	    'justifyContent': 'center',
 	    'textAlign': 'center',
-	    'backgroundColor': 'blue'
+	    'backgroundColor': '#27ae60'
 	  }
 	};
 

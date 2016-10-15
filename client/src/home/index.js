@@ -2,7 +2,7 @@
 const React = require('react');
 const ReactBootstrap = require('react-bootstrap');
 
-const {Jumbotron, FormGroup, ControlLabel, HelpBlock, FormControl} = ReactBootstrap;
+const {Jumbotron, FormGroup, ControlLabel, HelpBlock, FormControl, Form, Col, Checkbox, Button} = ReactBootstrap;
 
 const ReactDom = require('react-dom');
 
@@ -18,12 +18,11 @@ class HomePage extends React.Component {
     };
   }
 
-
   render() {
     return(
       <Jumbotron style={{'backgroundColor': '#27ae60', 'minWidth': '100%', 'minHeight': screen.height.toString() + 'px'}}>
         <h1 style={Styles.container}>{'Buy My Junk!'}</h1>
-         <Form horizontal style={{'textAlign': 'center', 'minWidth': '80%'}}>
+         <Form horizontal style={{'textAlign': 'center', 'marginLeft': '15%'}}>
             <FormGroup controlId="formHorizontalEmail">
               <Col componentClass={ControlLabel} sm={2}>
                  Email

@@ -10,7 +10,7 @@ var styles = {
         'height': '80%',
         'justifyContent': 'center',
         'textAlign': 'center',	
-        'backgroundColor': 'blue'
+        'backgroundColor': '#27ae60'
     }
 };
 
