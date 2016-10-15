@@ -8,6 +8,7 @@ const {Grid, Col, Row} = require('react-bootstrap');
 const ImageList = require('./ImageList.js');
 const ListingTitle = require('./ListingTitle.js');
 const Description = require('./Description.js');
+const Logo = require('./Logo.js');
 
 class Listing extends React.Component {
   constructor(props) {
