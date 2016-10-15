@@ -85,7 +85,7 @@
 	    value: function render() {
 	      return React.createElement(
 	        Jumbotron,
-	        { style: { 'backgroundColor': 'blue', 'minWidth': '100%', 'minHeight': screen.height.toString() + 'px' } },
+	        { style: { 'backgroundColor': '#27ae60', 'minWidth': '100%', 'minHeight': screen.height.toString() + 'px' } },
 	        React.createElement(
 	          'h1',
 	          { style: Styles.container },
@@ -93,7 +93,7 @@
 	        ),
 	        React.createElement(
 	          Form,
-	          { horizontal: true, style: { 'textAlign': 'center' } },
+	          { horizontal: true, style: { 'textAlign': 'center', 'minWidth': '80%' } },
 	          React.createElement(
 	            FormGroup,
 	            { controlId: 'formHorizontalEmail' },

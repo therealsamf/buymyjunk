@@ -21,12 +21,12 @@ class HomePage extends React.Component {
 
   render() {
     return(
-      <Jumbotron style={{'backgroundColor': 'blue', 'minWidth': '100%', 'minHeight': screen.height.toString() + 'px'}}>
+      <Jumbotron style={{'backgroundColor': '#27ae60', 'minWidth': '100%', 'minHeight': screen.height.toString() + 'px'}}>
         <h1 style={Styles.container}>{'Buy My Junk!'}</h1>
-         <Form horizontal style={{'textAlign': 'center'}}>
+         <Form horizontal style={{'textAlign': 'center', 'minWidth': '80%'}}>
             <FormGroup controlId="formHorizontalEmail">
               <Col componentClass={ControlLabel} sm={2}>
-                Email
+                 Email
               </Col>
               <Col sm={10}>
                 <FormControl type="email" placeholder="Email" />

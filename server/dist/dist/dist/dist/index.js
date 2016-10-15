@@ -13,10 +13,10 @@ function startServer() {
   var serv = require('http').Server(app);
 
   app.get('/', function (req, res) {
-    res.sendFile(Path.resolve(__dirname, '../', 'client/dist/home/index.html'));
+    res.sendFile(Path.resolve(__dirname, '../../', 'client/dist/home/index.html'));
   });
 
-  // app.use('/client', Express.static(Path.resolve(__dirname, '../../', 'client')));
+  app.use('/client', Express.static(Path.resolve(__dirname, '../../', 'client')));
 
   serv.listen(process.env.PORT || 2000);
 }
