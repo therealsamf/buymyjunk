@@ -62,6 +62,7 @@
 	var ControlLabel = ReactBootstrap.ControlLabel;
 	var HelpBlock = ReactBootstrap.HelpBlock;
 	var FormControl = ReactBootstrap.FormControl;
+	var Modal = ReactBootstrap.Modal;
 	var Form = ReactBootstrap.Form;
 	var Col = ReactBootstrap.Col;
 	var Checkbox = ReactBootstrap.Checkbox;
@@ -80,16 +81,28 @@
 
 	    var _this = _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).call(this, props));
 
-	    _this.state = {};
+	    _this.state = {
+	      'showModal': false
+	    };
 	    return _this;
 	  }
 
 	  _createClass(HomePage, [{
+	    key: 'cancel',
+	    value: function cancel() {
+	      this.setState({ showModal: false });
+	    }
+	  }, {
+	    key: 'open',
+	    value: function open() {
+	      this.setState({ showModal: true });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return React.createElement(
 	        Jumbotron,
-	        { style: { 'backgroundColor': '#27ae60', 'minWidth': '100%', 'minHeight': screen.height.toString() + 'px' } },
+	        { style: { 'backgroundColor': '#27ae60', 'textAlign': 'center', 'minWidth': '100%', 'minHeight': screen.height.toString() + 'px' } },
 	        React.createElement(
 	          'h1',
 	          { style: Styles.container },
@@ -97,7 +110,7 @@
 	        ),
 	        React.createElement(
 	          Form,
-	          { horizontal: true, style: { 'textAlign': 'center', 'marginLeft': '15%' } },
+	          { horizontal: true, style: { 'textAlign': 'center', 'marginRight': '15%' } },
 	          React.createElement(
 	            FormGroup,
 	            { controlId: 'formHorizontalEmail' },
@@ -152,6 +165,35 @@
 	              )
 	            )
 	          )
+	        ),
+	        React.createElement(
+	          Modal,
+	          { show: this.state.showModal },
+	          React.createElement(
+	            Modal.Header,
+	            null,
+	            React.createElement(Modal.Title, null)
+	          ),
+	          React.createElement(Modal.Body, null),
+	          React.createElement(
+	            Modal.Footer,
+	            null,
+	            React.createElement(
+	              Button,
+	              { onClick: this.cancel.bind(this) },
+	              'Cancel'
+	            ),
+	            React.createElement(
+	              Button,
+	              { bsStyle: 'primary' },
+	              'Submit'
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          Button,
+	          { onClick: this.open.bind(this), type: 'submit' },
+	          'Register'
 	        )
 	      );
 	    }

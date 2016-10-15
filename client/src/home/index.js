@@ -2,7 +2,7 @@
 const React = require('react');
 const ReactBootstrap = require('react-bootstrap');
 
-const {Jumbotron, FormGroup, ControlLabel, HelpBlock, FormControl, Form, Col, Checkbox, Button} = ReactBootstrap;
+const {Jumbotron, FormGroup, ControlLabel, HelpBlock, FormControl, Modal, Form, Col, Checkbox, Button} = ReactBootstrap;
 
 const ReactDom = require('react-dom');
 
@@ -15,14 +15,23 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      'showModal': false
     };
+  }
+
+  cancel() {
+    this.setState({ showModal: false });
+  }
+
+  open() {
+    this.setState({ showModal: true });
   }
 
   render() {
     return(
-      <Jumbotron style={{'backgroundColor': '#27ae60', 'minWidth': '100%', 'minHeight': screen.height.toString() + 'px'}}>
+      <Jumbotron style={{'backgroundColor': '#27ae60', 'textAlign': 'center', 'minWidth': '100%', 'minHeight': screen.height.toString() + 'px'}}>
         <h1 style={Styles.container}>{'Buy My Junk!'}</h1>
-         <Form horizontal style={{'textAlign': 'center', 'marginLeft': '15%'}}>
+         <Form horizontal style={{'textAlign': 'center', 'marginRight': '15%'}}>
             <FormGroup controlId="formHorizontalEmail">
               <Col componentClass={ControlLabel} sm={2}>
                  Email
@@ -55,7 +64,22 @@ class HomePage extends React.Component {
               </Col>
             </FormGroup>
           </Form>
-      
+          <Modal show={this.state.showModal}>
+            <Modal.Header>
+              <Modal.Title></Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+            </Modal.Body>
+
+            <Modal.Footer>
+              <Button onClick={this.cancel.bind(this)}>Cancel</Button>
+              <Button bsStyle="primary">Submit</Button>
+            </Modal.Footer>
+          </Modal>
+          <Button onClick={this.open.bind(this)} type="submit">
+             Register
+          </Button>
       </Jumbotron>
     );
   }
