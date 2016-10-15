@@ -2,14 +2,11 @@
 const React = require('react');
 const ReactBootstrap = require('react-bootstrap');
 
-const {Jumbotron, FormGroup, ControlLabel, HelpBlock, FormControl, Modal, Form, Col, Checkbox, Button} = ReactBootstrap;
+const {Jumbotron, FormGroup, ControlLabel, HelpBlock, FormControl, 
+  Modal, Form, Col, Checkbox, Button, ListGroupItem, ListGroup} = ReactBootstrap;
 
 const ReactDom = require('react-dom');
-
 const Styles = require('./style.js');
-
-
-
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -65,7 +62,7 @@ class HomePage extends React.Component {
                 {' '}
                 <Button bsStyle={"primary"}  onClick={this.open.bind(this)}>
                     Sign Up
-                </Button>     
+                </Button>         
               </Col>
             </FormGroup>
           </Form>
@@ -114,8 +111,40 @@ class HomePage extends React.Component {
               <Button bsStyle="primary">Submit</Button>
             </Modal.Footer>
           </Modal>
-           
-      </Jumbotron>
+          <h2>Items Sold</h2>
+          <span>
+            <ul >
+              <a href="/category?v=Textbooks">Textbooks</a>
+            </ul>
+          </span>
+            <ul>
+              <a href="/category?v=Furniture">Furniture</a>
+            </ul>
+            <ul>
+               <a href="/category?v=Appliances">Appliances</a>
+            </ul>
+          <ListGroup 
+            style={{
+              'backgroundColor': '#27ae60', 
+              'textAlign': 'center', 
+              'minWidth': '60%', 
+              'minHeight': screen.height.toString() + 'px'
+            }}  
+          >
+            <ListGroupItem>
+              <a href="/listing?v=fdakj">Listings</a>
+            </ListGroupItem>
+            <ListGroupItem>
+              <a href="/category?v=Textbooks">Textbooks</a>
+            </ListGroupItem>
+            <ListGroupItem>
+              <a href="/category?v=Furniture">Furniture</a>
+            </ListGroupItem>
+            <ListGroupItem>
+              <a href="/category?v=Appliances">Appliances</a>
+            </ListGroupItem>
+          </ListGroup>
+         </Jumbotron>
     );
   }
 };
