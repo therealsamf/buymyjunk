@@ -20,6 +20,7 @@ class HomePage extends React.Component {
   }
 
   cancel() {
+    console.log('Closing!');
     this.setState({ showModal: false });
   }
 
@@ -58,9 +59,13 @@ class HomePage extends React.Component {
 
             <FormGroup>
               <Col smOffset={2} sm={10}>
-                <Button type="submit">
+                <Button bsStyle={'primary'}>
                   Sign in
                 </Button>
+                {' '}
+                <Button bsStyle={"primary"}  onClick={this.open.bind(this)}>
+                    Sign Up
+                </Button>     
               </Col>
             </FormGroup>
           </Form>
@@ -94,7 +99,6 @@ class HomePage extends React.Component {
                           <FormControl type="email" placeholder="Username" />
                         </Col>
                       </FormGroup>
-
                       <FormGroup controlId="formHorizontalPassword">
                       <Col componentClass={ControlLabel} sm={2}>
                         Password
@@ -110,9 +114,7 @@ class HomePage extends React.Component {
               <Button bsStyle="primary">Submit</Button>
             </Modal.Footer>
           </Modal>
-          <Button onClick={this.open.bind(this)} type="submit">
-             Register
-          </Button>
+           
       </Jumbotron>
     );
   }

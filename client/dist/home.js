@@ -90,6 +90,7 @@
 	  _createClass(HomePage, [{
 	    key: 'cancel',
 	    value: function cancel() {
+	      console.log('Closing!');
 	      this.setState({ showModal: false });
 	    }
 	  }, {
@@ -160,8 +161,14 @@
 	              { smOffset: 2, sm: 10 },
 	              React.createElement(
 	                Button,
-	                { type: 'submit' },
+	                { bsStyle: 'primary' },
 	                'Sign in'
+	              ),
+	              ' ',
+	              React.createElement(
+	                Button,
+	                { bsStyle: "primary", onClick: this.open.bind(this) },
+	                'Sign Up'
 	              )
 	            )
 	          )
@@ -252,11 +259,6 @@
 	              'Submit'
 	            )
 	          )
-	        ),
-	        React.createElement(
-	          Button,
-	          { onClick: this.open.bind(this), type: 'submit' },
-	          'Register'
 	        )
 	      );
 	    }
