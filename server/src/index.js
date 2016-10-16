@@ -1,7 +1,10 @@
 "use strict";
 
+
 const Express = require('express');
 const Path = require('path');
+
+const regex = new RegExp('category');
 
 /**
  * @description - Starts the server and gets everything moving. First attempts to connect to the database, if that
@@ -12,7 +15,16 @@ function startServer() {
   var app = Express();
   var serv = require('http').Server(app);
 
+  app.get('/category', function(req, res) {
+    res.sendFile(Path.resolve(__dirname,'../../', 'client/dist/category/index.html'));
+  });
+
+  app.get('/listing', function(req, res) {
+    res.sendFile(Path.resolve(__dirname,'../../', 'client/dist/listing/index.html'));
+  });
+
   app.get('/', function(req, res) {
+  	
     res.sendFile(Path.resolve(__dirname,'../../', 'client/dist/home/index.html'));
   });
 
@@ -24,5 +36,3 @@ function startServer() {
 module.exports = {
   'startServer': startServer
 }
-
-
