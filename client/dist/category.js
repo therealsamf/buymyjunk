@@ -85,8 +85,9 @@
 	  _createClass(CategoryPage, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
+	      var query = QueryState();
 	      this.setState({
-	        'category': 'texbooks'
+	        'category': query.v
 	      });
 
 	      console.log('Query: ');

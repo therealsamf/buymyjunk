@@ -16,20 +16,24 @@ class ImageList extends React.Component {
 
   render() {
     var images = new Array();
-    for (var i = 0; i < this.state.urls.length; i++) {
-      var url = this.state.urls[i];
-      images.push(
-        <ListGroupItem key={i}>
-          <Image 
-            style={{
-              'maxWidth': '100%', 
-              'maxHeight': MAX_IMAGE_HEIGHT,
-            }}
-            src={url} 
-            rounded 
-          />
-        </ListGroupItem>
-      );
+    if (this.state.urls) {
+      for (var i = 0; i < this.state.urls.length; i++) {
+        var url = this.state.urls[i];
+        if (!url || url.length <= 0)
+          continue;
+        images.push(
+          <ListGroupItem key={i}>
+            <Image 
+              style={{
+                'maxWidth': '100%', 
+                'maxHeight': MAX_IMAGE_HEIGHT,
+              }}
+              src={url} 
+              rounded 
+            />
+          </ListGroupItem>
+        );
+      }
     }
 
     return (

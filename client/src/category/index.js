@@ -16,12 +16,14 @@ class CategoryPage extends React.Component {
   }
 
   componentWillMount() {
+    var query = QueryState();
     this.setState({
-      'category': 'texbooks'
+      'category': query.v
     });
 
     console.log('Query: ');
     console.dir(QueryString());
+
   }
 
   render() {

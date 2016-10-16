@@ -11,11 +11,15 @@ class Description extends React.Component {
     var tags = new Array();
     var key = 0,
       index = 0;
-    for (var tag of this.props.tags) {
-      tags.push(<Label key={key++}>{tag}</Label>)
-      index++;
-      if (index < this.props.tags.length) {
-        tags.push(<span key={key++}>{' '}</span>);
+    if (this.props.tags) {
+      for (var tag of this.props.tags) {
+        if (!tag || tag.length <= 0)
+          continue;
+        tags.push(<Label key={key++}>{tag}</Label>)
+        index++;
+        if (index < this.props.tags.length) {
+          tags.push(<span key={key++}>{' '}</span>);
+        }
       }
     }
     return (
