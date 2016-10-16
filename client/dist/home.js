@@ -40603,11 +40603,11 @@
 	var Button = _require.Button;
 
 
-	var utils = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../../utils/utils.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var utils = __webpack_require__(430);
 
 	var FailModal = __webpack_require__(435);
 
-	var SucessModal = __webpack_require__(436);
+	var SuccessModal = __webpack_require__(436);
 
 	var LoginModal = function (_React$Component) {
 	  _inherits(LoginModal, _React$Component);
@@ -40615,56 +40615,85 @@
 	  function LoginModal(props) {
 	    _classCallCheck(this, LoginModal);
 
-	    var _this = _possibleConstructorReturn(this, (LoginModal.__proto__ || Object.getPrototypeOf(LoginModal)).call(this, props));
+	    var _this2 = _possibleConstructorReturn(this, (LoginModal.__proto__ || Object.getPrototypeOf(LoginModal)).call(this, props));
 
-	    _this.state = {
+	    _this2.state = {
 	      'showModal': false,
 	      'authenticate': false,
 	      'verfiy': false,
 	      'email': '',
 	      'verifyCode': '',
-	      'UUID': utils.getUUID
+	      'UUID': utils.getUUID()
 	    };
-	    _this.open = _this.open.bind(_this);
-	    _this.close = _this.close.bind(_this);
-	    _this.handleChange = _this.handleChange.bind(_this);
-	    _this.changeVerify = _this.changeVerify.bind(_this);
-	    _this.auth = _this.auth.bind(_this);
-	    return _this;
+	    _this2.open = _this2.open.bind(_this2);
+	    _this2.close = _this2.close.bind(_this2);
+	    _this2.handleChange = _this2.handleChange.bind(_this2);
+	    _this2.changeVerify = _this2.changeVerify.bind(_this2);
+	    _this2.auth = _this2.auth.bind(_this2);
+	    _this2.verify = _this2.verify.bind(_this2);
+	    return _this2;
 	  }
 
 	  _createClass(LoginModal, [{
+	    key: 'verify',
+	    value: function verify() {
+
+	      var _this = this;
+
+	      var fail = function fail() {
+	        _this.refs.FailModal.open();
+	        setTimeout(_this.refs.FailModal, 300);
+	        _this.refs.FailModal.close();
+	      };
+
+	      var success = function success(obj) {
+	        console.log('OBJ');
+	        console.dir(obj);
+	        _this.refs.FailModal.open();
+	        setTimeout(_this.refs.FailModal.close, 300);
+	      };
+
+	      utils.verifyUUID(this.state.verifyCode, success, fail);
+	    }
+	  }, {
 	    key: 'auth',
 	    value: function auth() {
 	      if (!this.state.authenticate && utils.validEmail(this.state.email)) {
 	        console.log("authenticated");
 	        this.setState({ 'authenticate': true });
+	        var _this = this;
 
 	        var fail = function fail() {
-	          this.refs.FailModal;
-	          this.refs.FailModal.open;
-	          setTimeout(this.refs.FailModal, 300);
-	          this.refs.FailModal.close;
+	          _this.refs.FailModal.open();
+	          setTimeout(_this.refs.FailModal.close, 3000);
 	        };
 
-	        var success = function success() {
-	          this.refs.FailModal;
-	          this.refs.FailModal.open;
+	        var success = function success(response) {
+	          console.log('LoginModal Auth success method called');
+	          _this.setState({
+	            'successModalValue': 'Email Sent'
+	          });
+	          _this.refs.SuccessModal.open();
+	          setTimeout(_this.refs.SuccessModal.close, 1500);
 	        };
 
 	        utils.emailUUID(this.state.email, '', this.state.UUID);
-	        utils.storeUUID(this.state.UUID, { success: success }, { fail: fail });
+	        utils.storeUUID(this.state.UUID, success, fail);
 	      }
 	    }
 	  }, {
 	    key: 'handleChange',
 	    value: function handleChange(event) {
-	      this.state.email = event.target.value;
+	      this.setState({
+	        'email': event.target.value
+	      });
 	    }
 	  }, {
 	    key: 'changeVerify',
 	    value: function changeVerify(event) {
-	      this.state.verifyCode = event.target.value;
+	      this.setState({
+	        'verifyCode': event.target.value
+	      });
 	    }
 	  }, {
 	    key: 'open',
@@ -40691,6 +40720,7 @@
 	        Modal,
 	        { show: this.state.showModal },
 	        React.createElement(FailModal, { ref: 'FailModal' }),
+	        React.createElement(SuccessModal, { value: this.state.successModalValue, ref: 'SuccessModal' }),
 	        React.createElement(
 	          Modal.Header,
 	          null,
@@ -40735,7 +40765,7 @@
 	                React.createElement('input', { type: 'txt', value: this.state.value, onChange: this.verifyCode }),
 	                React.createElement(
 	                  Button,
-	                  { bsStyle: 'primary', disabled: !this.state.authenticate },
+	                  { bsStyle: 'primary', disabled: !this.state.authenticate, onClick: this.verify.bind(this) },
 	                  'Verify'
 	                )
 	              )
@@ -40794,7 +40824,113 @@
 	module.exports = LoginModal;
 
 /***/ },
-/* 430 */,
+/* 430 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var defaultGetCallback = function defaultGetCallback(http, success, fail) {
+	    return function (http) {
+	        http = http.currentTarget;
+	        // console.log(http);
+	        if (http.readyState == 4 && http.status == 200) {
+	            console.log('Response');
+	            console.dir(http.response);
+	            var body = JSON.parse(http.response).body;
+	            success(body);
+	        } else if (http.readyState == 4) {
+	            fail();
+	        }
+	    };
+	};
+
+	var callGetResponse = function callGetResponse(url, success, fail) {
+	    var http = new XMLHttpRequest();
+	    http.open("GET", url, true);
+	    // console.log('URL: ' + url);
+	    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	    http.onreadystatechange = defaultGetCallback(http, success, fail);
+	    http.send(null);
+	};
+
+	var validEmail = function validEmail(email) {
+	    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	    return re.test(email) && email.endsWith('edu');
+	};
+
+	var getUUID = function getUUID() {
+	    function randomNum() {
+	        return Math.floor((1 + Math.random()) * 0x1000000000).toString(16).substring(1);
+	    }
+	    return randomNum();
+	};
+
+	var emailUUID = function emailUUID(email, name, UUID) {
+	    emailjs.send("default_service", "buymyjunk", { code: UUID, name: name, to: email });
+	};
+
+	var storeUUID = function storeUUID(UUID, success, fail) {
+	    callGetResponse("http://www.danielloera.co/buymyjunk/add_uuid.php?code=" + UUID, success, fail);
+	};
+
+	var verifyUUID = function verifyUUID(UUID, success, fail) {
+	    callGetResponse("http://www.danielloera.co/buymyjunk/delete_uuid.php?code=" + UUID, success, fail);
+	};
+
+	var percentEncode = function percentEncode(string) {
+	    string = string.split(" ").join("%20");
+	    string = string.split("&").join("%26");
+	    return string.split("=").join("%3D");
+	};
+
+	var percentDecode = function percentDecode(string) {
+	    string = string.split("%20").join(" ");
+	    string = string.split("%26").join("&");
+	    return string.split("%3D").join("=");
+	};
+
+	/**
+	 * @param {string} id
+	 * @param {string} school
+	 * @param {string} username
+	 * @param {string} title
+	 * @param {string} decription
+	 * @param {string} category
+	 * @param {array} tags
+	 * @param {array} images
+	 * @param {function} success
+	 * @param {function} fail 
+	 */
+	var addPost = function addPost(id, school, username, title, description, category, tags, images, success, fail) {
+	    var url = "http://www.danielloera.co/buymyjunk/add_post.php?id=" + id + "&school=" + percentEncode(school) + "&username=" + percentEncode(username) + "&title=" + percentEncode(title) + "&desc=" + percentEncode(description) + "&cat=" + category + "&tc=" + tags.length + "&ic=" + images.length;
+
+	    for (var i = 0; i < tags.length; i++) {
+	        url += "&t" + i + "=" + tags[i];
+	    }
+
+	    for (var i = 0; i < images.length; i++) {
+	        url += "&i" + i + "=" + images[i];
+	    }
+
+	    callGetResponse(url, succes, fail);
+	};
+
+	var getPostById = function getPostById(id, school, success, fail) {
+	    callGetResponse("www.danielloera.co/buymyjunk/get_post_id.php?id=" + id + "&school=" + school, success, fail);
+	};
+
+	module.exports = {
+	    'defaultGetCallback': defaultGetCallback,
+	    'validEmail': validEmail,
+	    'emailUUID': emailUUID,
+	    'storeUUID': storeUUID,
+	    'verifyUUID': verifyUUID,
+	    'getUUID': getUUID
+
+	};
+
+/***/ },
 /* 431 */,
 /* 432 */,
 /* 433 */,
@@ -40830,6 +40966,9 @@
 	    _this.state = {
 	      'showModal': false
 	    };
+
+	    _this.open = _this.open.bind(_this);
+	    _this.close = _this.close.bind(_this);
 	    return _this;
 	  }
 
@@ -40922,12 +41061,16 @@
 	    _this.state = {
 	      'showModal': false
 	    };
+
+	    _this.open = _this.open.bind(_this);
+	    _this.close = _this.close.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(SuccessModal, [{
 	    key: 'open',
 	    value: function open() {
+	      console.log('SuccessModal opening');
 	      if (!this.state.showModal) {
 	        this.setState({
 	          'showModal': true
@@ -40949,7 +41092,6 @@
 	      return React.createElement(
 	        Modal,
 	        { show: this.state.showModal },
-	        React.createElement(FailModal, { ref: 'FailModal' }),
 	        React.createElement(
 	          Modal.Header,
 	          null,
@@ -40961,7 +41103,7 @@
 	          React.createElement(
 	            'b',
 	            null,
-	            'verified'
+	            this.props.value
 	          )
 	        ),
 	        React.createElement(

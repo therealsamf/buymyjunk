@@ -8,6 +8,9 @@ class FailModal extends React.Component {
     this.state = {
       'showModal': false
     };
+
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
   }
 
   open() {

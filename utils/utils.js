@@ -3,10 +3,11 @@ var defaultGetCallback = function(http, success, fail) {
         http = http.currentTarget;
         // console.log(http);
         if(http.readyState == 4 && http.status == 200) {
-            // console.log('Body: ' + JSON.parse(http.response).body);
-            var body = JSON.parse(JSON.parse(http.response).body);
+            console.log('Response');
+            console.dir(http.response);
+            var body = JSON.parse(http.response).body;
             success(body);
-        }else {
+        }else if(http.readyState == 4) {
             fail();
         }
     }
@@ -105,13 +106,10 @@ var getPostById = function(id, school, success, fail) {
 
 module.exports = {
     'defaultGetCallback': defaultGetCallback,
-<<<<<<< HEAD
     'validEmail': validEmail,
     'emailUUID': emailUUID,
     'storeUUID': storeUUID,
-    'verifyUUID': verifyUUID
-=======
-    'getPostById': getPostById,
-    'validEmail': validEmail
->>>>>>> c2e47aefda2f90f143ff9f232a0a0080b354697e
+    'verifyUUID': verifyUUID,
+    'getUUID': getUUID
+
 }
