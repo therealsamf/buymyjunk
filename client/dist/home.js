@@ -40787,7 +40787,6 @@
 	var callGetResponse = function callGetResponse(url, success, fail) {
 	    var http = new XMLHttpRequest();
 	    http.open("GET", url, true);
-	    console.log('URL: ' + url);
 	    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 	    http.onreadystatechange = defaultGetCallback(http, success, fail);
@@ -40859,6 +40858,8 @@
 	var getPostById = function getPostById(id, school, success, fail) {
 	    callGetResponse("www.danielloera.co/buymyjunk/get_post_id.php?id=" + id + "&school=" + school, success, fail);
 	};
+
+	var getPostsByFilter = function getPostsByFilter(school, category, tags, success, fail) {};
 
 	module.exports = {
 	    'defaultGetCallback': defaultGetCallback,

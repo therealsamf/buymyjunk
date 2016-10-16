@@ -13,7 +13,6 @@ var defaultGetCallback = function(http, success, fail) {
 var callGetResponse = function(url, success, fail) {
     var http = new XMLHttpRequest();
     http.open("GET", url, true);
-    console.log('URL: ' + url);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     
     http.onreadystatechange = defaultGetCallback(
@@ -99,6 +98,10 @@ var addPost = function(id, school, username, title, description, category, tags,
 var getPostById = function(id, school, success, fail) {
     callGetResponse("www.danielloera.co/buymyjunk/get_post_id.php?id=" + id + "&school=" + school,
         success, fail);
+}
+
+var getPostsByFilter = function(school, category, tags, success, fail) {
+
 }
 
 module.exports = {

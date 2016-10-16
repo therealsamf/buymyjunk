@@ -25,9 +25,9 @@ function startServer() {
 
   app.get('/', function(req, res) {
 	
-    res.sendFile(Path.resolve(__dirname,'../../', 'client/dist/home/index.html'));
+    //res.sendFile(Path.resolve(__dirname,'../../', 'client/dist/home/index.html'));
     //Used for testing the SQL server.
-    //res.sendFile(Path.resolve(__dirname,'../../', 'utils/util_tester.html'));
+    res.sendFile(Path.resolve(__dirname,'../../', 'utils/util_tester.html'));
 
   });
 
