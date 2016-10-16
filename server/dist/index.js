@@ -2,8 +2,9 @@
 
 const Express = require('express');
 const Path = require('path');
+const Request = require('request');
 
-const regex = new RegExp('category');
+const regex = new RegExp('danielloera');
 
 /**
  * @description - Starts the server and gets everything moving. First attempts to connect to the database, if that
@@ -20,6 +21,24 @@ function startServer() {
 
   app.get('/listing', function (req, res) {
     res.sendFile(Path.resolve(__dirname, '../../', 'client/dist/listing/index.html'));
+  });
+
+  app.get(regex, function (req, res) {
+    // console.log('Req');
+    // console.dir(req);
+    var path = req.originalUrl.substr(1);
+    Request('http://' + path, function (error, response, body) {
+      if (!error) {
+        // console.log('Body');
+        // console.log(body);
+        res.send(response);
+        console.log('Response');
+        console.log(response);
+      } else {
+        console.log('Error');
+        console.log(error);
+      }
+    });
   });
 
   app.get('/', function (req, res) {

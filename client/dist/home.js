@@ -40118,7 +40118,7 @@
 	var Button = _require.Button;
 
 
-	var utils = __webpack_require__(410);
+	var utils = __webpack_require__(406);
 
 	var LoginModal = function (_React$Component) {
 	  _inherits(LoginModal, _React$Component);
@@ -40282,21 +40282,19 @@
 	module.exports = LoginModal;
 
 /***/ },
-/* 406 */,
-/* 407 */,
-/* 408 */,
-/* 409 */,
-/* 410 */
+/* 406 */
 /***/ function(module, exports) {
 
 	"use strict";
 
 	var defaultGetCallback = function defaultGetCallback(http, success, fail) {
 	    return function (http) {
-	        http = http.originalTarget;
-	        console.log(http);
+	        http = http.currentTarget;
+	        // console.log(http);
 	        if (http.readyState == 4 && http.status == 200) {
-	            success(JSON.parse(http.response));
+	            // console.log('Body: ' + JSON.parse(http.response).body);
+	            var body = JSON.parse(JSON.parse(http.response).body);
+	            success(body);
 	        } else {
 	            fail();
 	        }
@@ -40306,7 +40304,7 @@
 	var callGetResponse = function callGetResponse(url, success, fail) {
 	    var http = new XMLHttpRequest();
 	    http.open("GET", url, true);
-	    console.log('URL: ' + url);
+	    // console.log('URL: ' + url);
 	    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 	    http.onreadystatechange = defaultGetCallback(http, success, fail);

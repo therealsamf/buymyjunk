@@ -13,6 +13,8 @@ class Description extends React.Component {
       index = 0;
     if (this.props.tags) {
       for (var tag of this.props.tags) {
+        if (!tag || tag.length <= 0)
+          continue;
         tags.push(<Label key={key++}>{tag}</Label>)
         index++;
         if (index < this.props.tags.length) {

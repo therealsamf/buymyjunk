@@ -20,6 +20,7 @@
     "react": "^15.3.1",
     "react-bootstrap": "^0.30.5",
     "react-dom": "^15.3.1",
+    "request": "^2.75.0",
     "tls": "0.0.1"
   },
   "devDependencies": {

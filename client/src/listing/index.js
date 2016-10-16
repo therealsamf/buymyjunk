@@ -27,14 +27,24 @@ class Listing extends React.Component {
 
   componentWillMount() {
     var queryString = QueryString();
-
+    var _this = this;
     utils.getPostById(queryString.id, 'UT Austin', 
       function(response) {
+        console.log('Response');
         console.dir(response);
+        var post = response.post[0];
+        _this.setState({
+          'description': post.description,
+          'tags': [post.tag_1, post.tag_2, post.tag_3, post.tag_4, post.tag_5, post.tag_6, post.tag_7,
+            post.tag_8, post.tag_9, post.tag_10],
+          'title': post.title,
+          'user': post.username,
+          'imageURLS': [post.image_1, post.image_2, post.image_3, post.image_4, post.image_5]
+        });
       }, 
       function() {
-        console.log('Failed');
-        
+        console.error('Failed');
+
       }
     );
     // this.setState({
