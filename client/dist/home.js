@@ -40818,7 +40818,45 @@
 	    callGetResponse("http://www.danielloera.co/buymyjunk/delete_uuid.php?code=" + UUID, success, fail);
 	};
 
-	var addPost = function addPost(id, school, username, title, description, category, tags, images, success, fail) {};
+	var percentEncode = function percentEncode(string) {
+	    string = string.split(" ").join("%20");
+	    string = string.split("&").join("%26");
+	    return string.split("=").join("%3D");
+	};
+
+	var percentDecode = function percentDecode(string) {
+	    string = string.split("%20").join(" ");
+	    string = string.split("%26").join("&");
+	    return string.split("%3D").join("=");
+	};
+
+	/**
+	 * @param {string} id
+	 * @param {string} school
+	 * @param {string} username
+	 * @param {string} title
+	 * @param {string} decription
+	 * @param {string} category
+	 * @param {array} tags
+	 * @param {array} images
+	 * @param {function} success
+	 * @param {function} fail 
+	 */
+	var addPost = function addPost(id, school, username, title, description, category, tags, images, success, fail) {
+	    var url = "http://www.danielloera.co/buymyjunk/add_post.php?id=" + id + "&school=" + percentEncode(school) + "&username=" + percentEncode(username) + "&title=" + percentEncode(title) + "&desc=" + percentEncode(description) + "&cat=" + category + "&tc=" + tags.length + "&ic=" + images.length;
+
+	    for (var i = 0; i < tags.length; i++) {
+	        url += "&t" + i + "=" + tags[i];
+	    }
+
+	    for (var i = 0; i < images.length; i++) {
+	        url += "&i" + i + "=" + images[i];
+	    }
+
+	    callGetResponse(url, succes, fail);
+	};
+
+	addPost(123, "UT Austin", "danny", "Buy my Shit", "please.", "Books", ["geography", "science"], ["google.com", "yahoo.com", "bing.com"], function (thing) {}, function () {});
 
 	module.exports = {
 	    'defaultGetCallback': defaultGetCallback,
