@@ -1,12 +1,14 @@
 {
-  "name": "test",
+  "name": "buyselltrade",
   "version": "1.0.0",
-  "description": "test for new stack!",
+  "description": "Univserity Buy/Sell/Trade site",
   "main": "index.js",
   "scripts": {
     "client-compile": "webpack --watch --progress --colors",
     "preserver-debug": "babel server/src -d server/dist",
-    "server-debug": "node --debug app.js"
+    "server-debug": "node --debug app.js",
+    "prestart": "webpack --progress --colors && babel server/src -d server/dist",
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
