@@ -40642,17 +40642,22 @@
 
 	      var fail = function fail() {
 	        _this.refs.FailModal.open();
-	        setTimeout(_this.refs.FailModal, 300);
-	        _this.refs.FailModal.close();
+	        setTimeout(_this.refs.FailModal.close, 3000);
 	      };
 
-	      var success = function success(obj) {
-	        console.log('OBJ');
-	        console.dir(obj);
-	        _this.refs.FailModal.open();
-	        setTimeout(_this.refs.FailModal.close, 300);
+	      var success = function success(response) {
+	        // console.log('LoginModal Auth success method called');
+	        console.log('ResponseMessage: ' + response.message);
+	        if (response.message !== 'fail') {
+	          _this.setState({
+	            'successModalValue': 'Verified'
+	          });
+	          _this.refs.SuccessModal.open();
+	          setTimeout(_this.refs.SuccessModal.close, 1500);
+	        } else {
+	          fail();
+	        }
 	      };
-
 	      utils.verifyUUID(this.state.verifyCode, success, fail);
 	    }
 	  }, {
@@ -40669,12 +40674,17 @@
 	        };
 
 	        var success = function success(response) {
-	          console.log('LoginModal Auth success method called');
-	          _this.setState({
-	            'successModalValue': 'Email Sent'
-	          });
-	          _this.refs.SuccessModal.open();
-	          setTimeout(_this.refs.SuccessModal.close, 1500);
+	          // console.log('LoginModal Auth success method called');
+	          console.log('ResponseMessage: ' + response.message);
+	          if (response.message !== 'fail') {
+	            _this.setState({
+	              'successModalValue': 'Email Sent'
+	            });
+	            _this.refs.SuccessModal.open();
+	            setTimeout(_this.refs.SuccessModal.close, 1500);
+	          } else {
+	            fail();
+	          }
 	        };
 
 	        utils.emailUUID(this.state.email, '', this.state.UUID);
@@ -40762,10 +40772,10 @@
 	              React.createElement(
 	                Col,
 	                { sm: 10 },
-	                React.createElement('input', { type: 'txt', value: this.state.value, onChange: this.verifyCode }),
+	                React.createElement('input', { type: 'txt', value: this.state.value, onChange: this.changeVerify }),
 	                React.createElement(
 	                  Button,
-	                  { bsStyle: 'primary', disabled: !this.state.authenticate, onClick: this.verify.bind(this) },
+	                  { bsStyle: 'primary', disabled: false /*!this.state.authenticate*/, onClick: this.verify.bind(this) },
 	                  'Verify'
 	                )
 	              )
@@ -40836,7 +40846,8 @@
 	        if (http.readyState == 4 && http.status == 200) {
 	            console.log('Response');
 	            console.dir(http.response);
-	            var body = JSON.parse(http.response).body;
+
+	            var body = JSON.parse(JSON.parse(http.response).body);
 	            success(body);
 	        } else if (http.readyState == 4) {
 	            fail();
@@ -40871,11 +40882,11 @@
 	};
 
 	var storeUUID = function storeUUID(UUID, success, fail) {
-	    callGetResponse("http://www.danielloera.co/buymyjunk/add_uuid.php?code=" + UUID, success, fail);
+	    callGetResponse("www.danielloera.co/buymyjunk/add_uuid.php?code=" + UUID, success, fail);
 	};
 
 	var verifyUUID = function verifyUUID(UUID, success, fail) {
-	    callGetResponse("http://www.danielloera.co/buymyjunk/delete_uuid.php?code=" + UUID, success, fail);
+	    callGetResponse("www.danielloera.co/buymyjunk/delete_uuid.php?code=" + UUID, success, fail);
 	};
 
 	var percentEncode = function percentEncode(string) {
@@ -40903,7 +40914,7 @@
 	 * @param {function} fail 
 	 */
 	var addPost = function addPost(id, school, username, title, description, category, tags, images, success, fail) {
-	    var url = "http://www.danielloera.co/buymyjunk/add_post.php?id=" + id + "&school=" + percentEncode(school) + "&username=" + percentEncode(username) + "&title=" + percentEncode(title) + "&desc=" + percentEncode(description) + "&cat=" + category + "&tc=" + tags.length + "&ic=" + images.length;
+	    var url = "www.danielloera.co/buymyjunk/add_post.php?id=" + id + "&school=" + percentEncode(school) + "&username=" + percentEncode(username) + "&title=" + percentEncode(title) + "&desc=" + percentEncode(description) + "&cat=" + category + "&tc=" + tags.length + "&ic=" + images.length;
 
 	    for (var i = 0; i < tags.length; i++) {
 	        url += "&t" + i + "=" + tags[i];
@@ -40926,8 +40937,8 @@
 	    'emailUUID': emailUUID,
 	    'storeUUID': storeUUID,
 	    'verifyUUID': verifyUUID,
-	    'getUUID': getUUID
-
+	    'getUUID': getUUID,
+	    'getPostById': getPostById
 	};
 
 /***/ },
