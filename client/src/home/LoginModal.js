@@ -5,6 +5,10 @@ const {Modal, Col, Row, FormControl, FormGroup, ControlLabel, ToDo, Form, Button
 
 var utils = require('../../../utils/utils.js');
 
+var FailModal = require('./FailModal.js');
+
+var SucessModal = require('./SuccessModal.js');
+
 class LoginModal extends React.Component {
   constructor(props) {
     super(props);
@@ -12,11 +16,14 @@ class LoginModal extends React.Component {
       'showModal': false,
       'authenticate': false,               
       'verfiy': false,
-      'email': ''
+      'email': '',
+      'verifyCode': '',
+      'UUID': utils.getUUID
     }
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.changeVerify = this.changeVerify.bind(this);
     this.auth = this.auth.bind(this);
   }
 
@@ -24,12 +31,30 @@ class LoginModal extends React.Component {
     if (!this.state.authenticate && utils.validEmail(this.state.email)) {
         console.log("authenticated");
         this.setState({'authenticate': true});
+    
+        var fail = function(){
+          this.refs.FailModal;
+          this.refs.FailModal.open;
+          setTimeout(this.refs.FailModal,300);
+          this.refs.FailModal.close;
+        }
+
+        var success = function(){
+            this.refs.FailModal;
+          this.refs.FailModal.open;
+        }
+
+        utils.emailUUID(this.state.email,'',this.state.UUID);
+        utils.storeUUID(this.state.UUID, {success}, {fail});
     }
   }
 
   handleChange(event) {
     this.state.email = event.target.value;
-    console.log(this.state.email);
+  }
+
+  changeVerify(event){
+    this.state.verifyCode = event.target.value;
   }
 
   open() {
@@ -51,6 +76,7 @@ class LoginModal extends React.Component {
   render() {
     return (
       <Modal show={this.state.showModal}>
+        <FailModal ref={'FailModal'} />
         <Modal.Header>
           <Modal.Title></Modal.Title>
         </Modal.Header>
@@ -73,10 +99,11 @@ class LoginModal extends React.Component {
                        Verify
                     </Col>
                     <Col sm={10}>
-                      <FormControl type="email" placeholder="Verifcation Code" disabled={!this.state.authenticate} />
+                      <input type="txt" value={this.state.value} onChange={this.verifyCode}> 
+                        </input>
                       <Button bsStyle={'primary'} disabled={!this.state.authenticate}>
                           Verify
-                       </Button>
+                       </Button>  
                     </Col>
                   </FormGroup>
                    <FormGroup controlId="formHorizontalEmail" >
