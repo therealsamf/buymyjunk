@@ -153,6 +153,7 @@ class HomePage extends React.Component {
                 }}>
                   Sign Up
                 </Button>
+                  {' '}
                 <Button disabled={!this.state.signedIn} bsStyle={'info'} onClick={function() {
                   if (_this.refs.NewListingModal) {
                     _this.refs.NewListingModal.open();
