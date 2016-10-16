@@ -7,7 +7,7 @@ class CategoryList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      'categories': new Array()
+      'categories': require('./Categories.js')
     };
   }
 
@@ -39,9 +39,16 @@ class CategoryListItem extends React.Component {
   }
 
   render() {
+    var _this = this;
+    var cat = _this.state.value.substr(0, 1).toUpperCase() + _this.state.value.substr(1);
+
     return (
-      <ListGroupItem>
-        {this.state.value}
+      <ListGroupItem onClick={
+        function() {
+          window.location.href = '/category?cat=' + cat;
+        }}
+      >
+        {cat}
       </ListGroupItem>
     );
   }

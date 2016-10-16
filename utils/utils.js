@@ -135,7 +135,8 @@ var addUser = function(username, password, email, school,
 var login = function(username, password, success, fail) {
     //please please NEVER delete this line for user safety.
     var hashedPassword = sha256(password);
-     callGetResponse("www.danielloera.co/buymyjunk/add_user.php?username="
+    console.log('Pass: ' + hashedPassword.toString());
+     callGetResponse("www.danielloera.co/buymyjunk/login.php?username="
         + percentEncode(username) +
         "&password=" + hashedPassword,
         success,
@@ -151,5 +152,8 @@ module.exports = {
     'verifyUUID': verifyUUID,
     'getUUID': getUUID,
     'getPostById': getPostById,
-    'addPost': addPost
+    'addPost': addPost,
+    'addUser': addUser,
+    'login': login,
+    'getPostsByFilter': getPostsByFilter
 }

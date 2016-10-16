@@ -85,35 +85,32 @@
 	  _createClass(CategoryPage, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      var query = QueryState();
+	      var query = QueryString();
 	      this.setState({
-	        'category': query.v
+	        'category': query.cat
 	      });
-
-	      console.log('Query: ');
-	      console.dir(QueryString());
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return React.createElement(
 	        'div',
-	        null,
+	        { style: { 'backgroundColor': '#27ae60' } },
 	        React.createElement(
 	          Grid,
 	          null,
 	          React.createElement(
 	            Col,
-	            null,
+	            { sm: 3 },
 	            React.createElement(CategoryList, null)
 	          ),
 	          React.createElement(
 	            Col,
-	            null,
+	            { sm: 6 },
 	            React.createElement(
 	              Row,
-	              null,
-	              React.createElement(CategoryTitle, { value: this.state.category })
+	              { style: { 'marginBottom': '3px', 'marginTop': '3px' } },
+	              React.createElement(CategoryTitle, { title: this.state.category })
 	            ),
 	            React.createElement(
 	              Row,
@@ -39969,12 +39966,12 @@
 	  function CategoryList(props) {
 	    _classCallCheck(this, CategoryList);
 
-	    var _this = _possibleConstructorReturn(this, (CategoryList.__proto__ || Object.getPrototypeOf(CategoryList)).call(this, props));
+	    var _this2 = _possibleConstructorReturn(this, (CategoryList.__proto__ || Object.getPrototypeOf(CategoryList)).call(this, props));
 
-	    _this.state = {
-	      'categories': new Array()
+	    _this2.state = {
+	      'categories': __webpack_require__(417)
 	    };
-	    return _this;
+	    return _this2;
 	  }
 
 	  _createClass(CategoryList, [{
@@ -40030,21 +40027,27 @@
 	  function CategoryListItem(props) {
 	    _classCallCheck(this, CategoryListItem);
 
-	    var _this2 = _possibleConstructorReturn(this, (CategoryListItem.__proto__ || Object.getPrototypeOf(CategoryListItem)).call(this, props));
+	    var _this3 = _possibleConstructorReturn(this, (CategoryListItem.__proto__ || Object.getPrototypeOf(CategoryListItem)).call(this, props));
 
-	    _this2.state = {
+	    _this3.state = {
 	      'value': props.value
 	    };
-	    return _this2;
+	    return _this3;
 	  }
 
 	  _createClass(CategoryListItem, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this = this;
+	      var cat = _this.state.value.substr(0, 1).toUpperCase() + _this.state.value.substr(1);
+
 	      return React.createElement(
 	        ListGroupItem,
-	        null,
-	        this.state.value
+	        { onClick: function onClick() {
+	            window.location.href = '/category?cat=' + cat;
+	          }
+	        },
+	        cat
 	      );
 	    }
 	  }]);
@@ -40089,10 +40092,20 @@
 	  _createClass(CategoryTitle, [{
 	    key: 'render',
 	    value: function render() {
+	      var title = this.state.value.substr(0, 1).toUpperCase() + this.state.value.substr(1);
 	      return React.createElement(
 	        'div',
-	        null,
-	        this.state.value
+	        { style: {
+	            'fontSize': '20px',
+	            'fontWeight': 'bold',
+	            'backgroundColor': '#ecf0f1',
+	            'borderRadius': '5px'
+	          } },
+	        React.createElement(
+	          'span',
+	          { style: { 'padding': '5px' } },
+	          title
+	        )
 	      );
 	    }
 	  }]);
@@ -40125,50 +40138,102 @@
 	var ListGroup = _require.ListGroup;
 	var ListGroupItem = _require.ListGroupItem;
 
+
+	var utils = __webpack_require__(406);
+
 	var ListingList = function (_React$Component) {
 	  _inherits(ListingList, _React$Component);
 
 	  function ListingList(props) {
 	    _classCallCheck(this, ListingList);
 
-	    var _this = _possibleConstructorReturn(this, (ListingList.__proto__ || Object.getPrototypeOf(ListingList)).call(this, props));
+	    var _this2 = _possibleConstructorReturn(this, (ListingList.__proto__ || Object.getPrototypeOf(ListingList)).call(this, props));
 
-	    _this.state = {
+	    _this2.state = {
 	      'category': props.category,
 	      'listings': new Array()
 	    };
-	    return _this;
+	    return _this2;
 	  }
 
 	  _createClass(ListingList, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      var dumbWords = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non commodo justo. Phasellus finibus sit amet tellus et condimentum. Cras auctor purus a turpis congue luctus. Donec auctor ut tellus quis molestie. Sed nec diam eget erat aliquet malesuada. Proin faucibus pretium rutrum. Curabitur venenatis posuere lorem volutpat ullamcorper. Nam in massa pulvinar, viverra risus a, viverra tortor. Nunc imperdiet pellentesque nulla, vel finibus sem rutrum et. Integer mollis nunc nec nunc aliquet gravida. Vestibulum vehicula dapibus tristique. Proin pretium metus in ante commodo mattis. Sed arcu sapien, bibendum sit amet dolor vitae, tempus blandit erat. Aenean et quam in purus tempor molestie. Ut massa purus, dapibus quis tristique vitae, efficitur eu odio.';
-	      dumbWords = dumbWords.split(' ');
-
-	      var newListings = new Array();
-	      for (var i = 0; i < 10; i++) {
-	        newListings.push(React.createElement(
-	          ListGroupItem,
-	          { key: i },
-	          dumbWords[i]
-	        ));
-	      }
-
-	      this.setState({
-	        'listings': newListings
+	      var _this = this;
+	      utils.getPostsByFilter('UT Austin', this.state.category, null, function (response) {
+	        // console.log('Response');
+	        // console.dir(response);
+	        _this.setState({
+	          'listings': response
+	        });
+	      }, function () {
+	        console.error('Failed to get listings for category: ' + this.state.category.toString());
 	      });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var listings = new Array();
+	      var key = 0;
+	      var _iteratorNormalCompletion = true;
+	      var _didIteratorError = false;
+	      var _iteratorError = undefined;
+
+	      try {
+	        var _loop = function _loop() {
+	          var listing = _step.value;
+
+	          listings.push(React.createElement(
+	            ListGroupItem,
+	            {
+	              onClick: function onClick() {
+	                window.location.href = '/listing?id=' + listing.id.toString();
+	              },
+	              key: key++
+	            },
+	            React.createElement(
+	              'span',
+	              null,
+	              React.createElement(
+	                'span',
+	                { className: 'text-info' },
+	                listing.title
+	              ),
+	              ' ',
+	              React.createElement(
+	                'span',
+	                { style: { 'maxWidth': '80%', 'fontSize': '10px' }, className: 'text-muted' },
+	                listing.description
+	              )
+	            )
+	          ));
+	        };
+
+	        for (var _iterator = this.state.listings[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	          _loop();
+	        }
+	      } catch (err) {
+	        _didIteratorError = true;
+	        _iteratorError = err;
+	      } finally {
+	        try {
+	          if (!_iteratorNormalCompletion && _iterator.return) {
+	            _iterator.return();
+	          }
+	        } finally {
+	          if (_didIteratorError) {
+	            throw _iteratorError;
+	          }
+	        }
+	      }
+
 	      return React.createElement(
 	        'div',
 	        null,
 	        React.createElement(
 	          ListGroup,
-	          null,
-	          this.state.listings
+	          { style: { 'maxHeight': '450px', 'overflowY': 'scroll', 'boxShadow': '3px 5px 5px 5px #95a5a6' } },
+	          listings
 	        )
 	      );
 	    }
@@ -40178,6 +40243,416 @@
 	}(React.Component);
 
 	module.exports = ListingList;
+
+/***/ },
+/* 404 */,
+/* 405 */,
+/* 406 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var _module$exports;
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	var sha256 = __webpack_require__(407);
+
+	var defaultGetCallback = function defaultGetCallback(http, success, fail) {
+	    return function (http) {
+	        http = http.currentTarget;
+	        if (http.readyState == 4 && http.status == 200) {
+
+	            var body = JSON.parse(JSON.parse(http.response).body);
+	            success(body);
+	        } else if (http.readyState == 4) {
+	            fail();
+	        }
+	    };
+	};
+
+	var callGetResponse = function callGetResponse(url, success, fail) {
+	    var http = new XMLHttpRequest();
+	    http.open("GET", url, true);
+	    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	    http.onreadystatechange = defaultGetCallback(http, success, fail);
+	    http.send(null);
+	};
+
+	var validEmail = function validEmail(email) {
+	    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	    return re.test(email) && email.endsWith('edu');
+	};
+
+	var getUUID = function getUUID() {
+	    function randomNum() {
+	        return Math.floor((1 + Math.random()) * 0x1000000000).toString(16).substring(1);
+	    }
+	    return randomNum();
+	};
+
+	var emailUUID = function emailUUID(email, name, UUID) {
+	    emailjs.send("default_service", "buymyjunk", { code: UUID, name: name, to: email });
+	};
+
+	var storeUUID = function storeUUID(UUID, success, fail) {
+	    callGetResponse("www.danielloera.co/buymyjunk/add_uuid.php?code=" + UUID, success, fail);
+	};
+
+	var verifyUUID = function verifyUUID(UUID, success, fail) {
+	    callGetResponse("www.danielloera.co/buymyjunk/delete_uuid.php?code=" + UUID, success, fail);
+	};
+
+	var percentEncode = function percentEncode(string) {
+	    string = string.split(" ").join("%20");
+	    string = string.split("&").join("%26");
+	    return string.split("=").join("%3D");
+	};
+
+	var percentDecode = function percentDecode(string) {
+	    string = string.split("%20").join(" ");
+	    string = string.split("%26").join("&");
+	    return string.split("%3D").join("=");
+	};
+
+	/**
+	 * @param {string} id
+	 * @param {string} school
+	 * @param {string} username
+	 * @param {string} title
+	 * @param {string} decription
+	 * @param {string} category
+	 * @param {array} tags
+	 * @param {array} images
+	 * @param {function} success
+	 * @param {function} fail 
+	 */
+	var addPost = function addPost(id, school, username, title, description, category, tags, images, success, fail) {
+	    var url = "www.danielloera.co/buymyjunk/add_post.php?id=" + id + "&school=" + percentEncode(school) + "&username=" + percentEncode(username) + "&title=" + percentEncode(title) + "&desc=" + percentEncode(description) + "&cat=" + category + "&tc=" + tags.length + "&ic=" + images.length;
+
+	    for (var i = 0; i < tags.length; i++) {
+	        url += "&t" + i + "=" + tags[i];
+	    }
+
+	    for (var i = 0; i < images.length; i++) {
+	        url += "&i" + i + "=" + images[i];
+	    }
+
+	    callGetResponse(url, success, fail);
+	};
+
+	var getPostById = function getPostById(id, school, success, fail) {
+	    callGetResponse("www.danielloera.co/buymyjunk/get_post_id.php?id=" + id + "&school=" + school, success, fail);
+	};
+
+	var getPostsByFilter = function getPostsByFilter(school, category, tags, success, fail) {
+	    var url = "www.danielloera.co/buymyjunk/get_post_filter.php?school=" + school;
+	    if (category !== null) {
+	        url += "&cat=" + category;
+	    }
+
+	    if (tags != null) {
+	        url += "&tc=" + tags.length;
+	        for (var i = 0; i < tags.length; i++) {
+	            url += "&t" + i + "=" + tags[i];
+	        }
+	    }
+	    callGetResponse(url, success, fail);
+	};
+
+	var addUser = function addUser(username, password, email, school, success, fail) {
+	    //please please NEVER delete this line for user safety.
+	    var hashedPassword = sha256(password);
+	    callGetResponse("www.danielloera.co/buymyjunk/add_user.php?username=" + percentEncode(username) + "&password=" + hashedPassword + "&email=" + email + "&school=" + percentEncode(school), success, fail);
+	};
+
+	var login = function login(username, password, success, fail) {
+	    //please please NEVER delete this line for user safety.
+	    var hashedPassword = sha256(password);
+	    console.log('Pass: ' + hashedPassword.toString());
+	    callGetResponse("www.danielloera.co/buymyjunk/login.php?username=" + percentEncode(username) + "&password=" + hashedPassword, success, fail);
+	};
+
+	module.exports = (_module$exports = {
+	    'defaultGetCallback': defaultGetCallback,
+	    'validEmail': validEmail,
+	    'emailUUID': emailUUID,
+	    'storeUUID': storeUUID,
+	    'getUUID': getUUID,
+	    'verifyUUID': verifyUUID
+	}, _defineProperty(_module$exports, "getUUID", getUUID), _defineProperty(_module$exports, 'getPostById', getPostById), _defineProperty(_module$exports, 'addPost', addPost), _defineProperty(_module$exports, 'addUser', addUser), _defineProperty(_module$exports, 'login', login), _defineProperty(_module$exports, 'getPostsByFilter', getPostsByFilter), _module$exports);
+
+/***/ },
+/* 407 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	!function (globals) {
+	  'use strict';
+
+	  var _imports = {};
+
+	  if (typeof module !== 'undefined' && module.exports) {
+	    //CommonJS
+	    _imports.bytesToHex = __webpack_require__(408).bytesToHex;
+	    _imports.convertString = __webpack_require__(409);
+	    module.exports = sha256;
+	  } else {
+	    _imports.bytesToHex = globals.convertHex.bytesToHex;
+	    _imports.convertString = globals.convertString;
+	    globals.sha256 = sha256;
+	  }
+
+	  /*
+	  CryptoJS v3.1.2
+	  code.google.com/p/crypto-js
+	  (c) 2009-2013 by Jeff Mott. All rights reserved.
+	  code.google.com/p/crypto-js/wiki/License
+	  */
+
+	  // Initialization round constants tables
+	  var K = [];
+
+	  // Compute constants
+	  !function () {
+	    function isPrime(n) {
+	      var sqrtN = Math.sqrt(n);
+	      for (var factor = 2; factor <= sqrtN; factor++) {
+	        if (!(n % factor)) return false;
+	      }
+
+	      return true;
+	    }
+
+	    function getFractionalBits(n) {
+	      return (n - (n | 0)) * 0x100000000 | 0;
+	    }
+
+	    var n = 2;
+	    var nPrime = 0;
+	    while (nPrime < 64) {
+	      if (isPrime(n)) {
+	        K[nPrime] = getFractionalBits(Math.pow(n, 1 / 3));
+	        nPrime++;
+	      }
+
+	      n++;
+	    }
+	  }();
+
+	  var bytesToWords = function bytesToWords(bytes) {
+	    var words = [];
+	    for (var i = 0, b = 0; i < bytes.length; i++, b += 8) {
+	      words[b >>> 5] |= bytes[i] << 24 - b % 32;
+	    }
+	    return words;
+	  };
+
+	  var wordsToBytes = function wordsToBytes(words) {
+	    var bytes = [];
+	    for (var b = 0; b < words.length * 32; b += 8) {
+	      bytes.push(words[b >>> 5] >>> 24 - b % 32 & 0xFF);
+	    }
+	    return bytes;
+	  };
+
+	  // Reusable object
+	  var W = [];
+
+	  var processBlock = function processBlock(H, M, offset) {
+	    // Working variables
+	    var a = H[0],
+	        b = H[1],
+	        c = H[2],
+	        d = H[3];
+	    var e = H[4],
+	        f = H[5],
+	        g = H[6],
+	        h = H[7];
+
+	    // Computation
+	    for (var i = 0; i < 64; i++) {
+	      if (i < 16) {
+	        W[i] = M[offset + i] | 0;
+	      } else {
+	        var gamma0x = W[i - 15];
+	        var gamma0 = (gamma0x << 25 | gamma0x >>> 7) ^ (gamma0x << 14 | gamma0x >>> 18) ^ gamma0x >>> 3;
+
+	        var gamma1x = W[i - 2];
+	        var gamma1 = (gamma1x << 15 | gamma1x >>> 17) ^ (gamma1x << 13 | gamma1x >>> 19) ^ gamma1x >>> 10;
+
+	        W[i] = gamma0 + W[i - 7] + gamma1 + W[i - 16];
+	      }
+
+	      var ch = e & f ^ ~e & g;
+	      var maj = a & b ^ a & c ^ b & c;
+
+	      var sigma0 = (a << 30 | a >>> 2) ^ (a << 19 | a >>> 13) ^ (a << 10 | a >>> 22);
+	      var sigma1 = (e << 26 | e >>> 6) ^ (e << 21 | e >>> 11) ^ (e << 7 | e >>> 25);
+
+	      var t1 = h + sigma1 + ch + K[i] + W[i];
+	      var t2 = sigma0 + maj;
+
+	      h = g;
+	      g = f;
+	      f = e;
+	      e = d + t1 | 0;
+	      d = c;
+	      c = b;
+	      b = a;
+	      a = t1 + t2 | 0;
+	    }
+
+	    // Intermediate hash value
+	    H[0] = H[0] + a | 0;
+	    H[1] = H[1] + b | 0;
+	    H[2] = H[2] + c | 0;
+	    H[3] = H[3] + d | 0;
+	    H[4] = H[4] + e | 0;
+	    H[5] = H[5] + f | 0;
+	    H[6] = H[6] + g | 0;
+	    H[7] = H[7] + h | 0;
+	  };
+
+	  function sha256(message, options) {
+	    ;
+	    if (message.constructor === String) {
+	      message = _imports.convertString.UTF8.stringToBytes(message);
+	    }
+
+	    var H = [0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A, 0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19];
+
+	    var m = bytesToWords(message);
+	    var l = message.length * 8;
+
+	    m[l >> 5] |= 0x80 << 24 - l % 32;
+	    m[(l + 64 >> 9 << 4) + 15] = l;
+
+	    for (var i = 0; i < m.length; i += 16) {
+	      processBlock(H, m, i);
+	    }
+
+	    var digestbytes = wordsToBytes(H);
+	    return options && options.asBytes ? digestbytes : options && options.asString ? _imports.convertString.bytesToString(digestbytes) : _imports.bytesToHex(digestbytes);
+	  }
+
+	  sha256.x2 = function (message, options) {
+	    return sha256(sha256(message, { asBytes: true }), options);
+	  };
+	}(undefined);
+
+/***/ },
+/* 408 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	!function (globals) {
+	  'use strict';
+
+	  var convertHex = {
+	    bytesToHex: function bytesToHex(bytes) {
+	      /*if (typeof bytes.byteLength != 'undefined') {
+	        var newBytes = []
+	         if (typeof bytes.buffer != 'undefined')
+	          bytes = new DataView(bytes.buffer)
+	        else
+	          bytes = new DataView(bytes)
+	         for (var i = 0; i < bytes.byteLength; ++i) {
+	          newBytes.push(bytes.getUint8(i))
+	        }
+	        bytes = newBytes
+	      }*/
+	      return arrBytesToHex(bytes);
+	    },
+	    hexToBytes: function hexToBytes(hex) {
+	      if (hex.length % 2 === 1) throw new Error("hexToBytes can't have a string with an odd number of characters.");
+	      if (hex.indexOf('0x') === 0) hex = hex.slice(2);
+	      return hex.match(/../g).map(function (x) {
+	        return parseInt(x, 16);
+	      });
+	    }
+	  };
+
+	  // PRIVATE
+
+	  function arrBytesToHex(bytes) {
+	    return bytes.map(function (x) {
+	      return padLeft(x.toString(16), 2);
+	    }).join('');
+	  }
+
+	  function padLeft(orig, len) {
+	    if (orig.length > len) return orig;
+	    return Array(len - orig.length + 1).join('0') + orig;
+	  }
+
+	  if (typeof module !== 'undefined' && module.exports) {
+	    //CommonJS
+	    module.exports = convertHex;
+	  } else {
+	    globals.convertHex = convertHex;
+	  }
+	}(undefined);
+
+/***/ },
+/* 409 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	!function (globals) {
+	  'use strict';
+
+	  var convertString = {
+	    bytesToString: function bytesToString(bytes) {
+	      return bytes.map(function (x) {
+	        return String.fromCharCode(x);
+	      }).join('');
+	    },
+	    stringToBytes: function stringToBytes(str) {
+	      return str.split('').map(function (x) {
+	        return x.charCodeAt(0);
+	      });
+	    }
+	  };
+
+	  //http://hossa.in/2012/07/20/utf-8-in-javascript.html
+	  convertString.UTF8 = {
+	    bytesToString: function bytesToString(bytes) {
+	      return decodeURIComponent(escape(convertString.bytesToString(bytes)));
+	    },
+	    stringToBytes: function stringToBytes(str) {
+	      return convertString.stringToBytes(unescape(encodeURIComponent(str)));
+	    }
+	  };
+
+	  if (typeof module !== 'undefined' && module.exports) {
+	    //CommonJS
+	    module.exports = convertString;
+	  } else {
+	    globals.convertString = convertString;
+	  }
+	}(undefined);
+
+/***/ },
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */,
+/* 415 */,
+/* 416 */,
+/* 417 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	//Categories.js//
+
+	module.exports = ['books', 'electronics', 'furniture', 'appliances', 'clothing', 'food', 'tickets', 'school', 'other'];
 
 /***/ }
 /******/ ]);

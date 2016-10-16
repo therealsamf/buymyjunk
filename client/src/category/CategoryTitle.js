@@ -14,9 +14,15 @@ class CategoryTitle extends React.Component {
 
 
   render() {
+    var title = this.state.value.substr(0, 1).toUpperCase() + this.state.value.substr(1);
     return (
-      <div>
-        {this.state.value}
+      <div style={{
+        'fontSize': '20px', 
+        'fontWeight': 'bold', 
+        'backgroundColor': '#ecf0f1', 
+        'borderRadius': '5px',
+      }}>
+        <span style={{'padding': '5px'}}>{title}</span>
       </div>
     );
   }

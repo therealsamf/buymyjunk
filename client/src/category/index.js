@@ -16,29 +16,26 @@ class CategoryPage extends React.Component {
   }
 
   componentWillMount() {
-    var query = QueryState();
+    var query = QueryString();
     this.setState({
-      'category': query.v
+      'category': query.cat
     });
-
-    console.log('Query: ');
-    console.dir(QueryString());
 
   }
 
   render() {
     return (
-      <div>
+      <div style={{'backgroundColor': '#27ae60'}}>
         <Grid>
-          <Col>
+          <Col sm={3}>
             <CategoryList />
           </Col>
-          <Col>
-            <Row>
-              <CategoryTitle value={this.state.category} />
+          <Col sm={6}>
+            <Row style={{'marginBottom': '3px', 'marginTop': '3px'}}>
+              <CategoryTitle title={this.state.category} />
             </Row>
             <Row>
-              <ListingList category={this.state.category}/>
+              <ListingList category={this.state.category} />
             </Row>
           </Col>
         </Grid>

@@ -3,6 +3,8 @@
 const React = require('react');
 const {ListGroup, ListGroupItem} = require('react-bootstrap');
 
+const utils = require('../../../utils/utils.js');
+
 class ListingList extends React.Component {
   constructor(props) {
     super(props);
@@ -13,24 +15,42 @@ class ListingList extends React.Component {
   }
 
   componentWillMount() {
-    var dumbWords = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras non commodo justo. Phasellus finibus sit amet tellus et condimentum. Cras auctor purus a turpis congue luctus. Donec auctor ut tellus quis molestie. Sed nec diam eget erat aliquet malesuada. Proin faucibus pretium rutrum. Curabitur venenatis posuere lorem volutpat ullamcorper. Nam in massa pulvinar, viverra risus a, viverra tortor. Nunc imperdiet pellentesque nulla, vel finibus sem rutrum et. Integer mollis nunc nec nunc aliquet gravida. Vestibulum vehicula dapibus tristique. Proin pretium metus in ante commodo mattis. Sed arcu sapien, bibendum sit amet dolor vitae, tempus blandit erat. Aenean et quam in purus tempor molestie. Ut massa purus, dapibus quis tristique vitae, efficitur eu odio.';
-    dumbWords = dumbWords.split(' ');
-
-    var newListings = new Array();
-    for (var i = 0; i < 10; i++) {
-      newListings.push(<ListGroupItem key={i}>{dumbWords[i]}</ListGroupItem>);
-    }
-
-    this.setState({
-      'listings': newListings
-    });
+    var _this = this;
+    utils.getPostsByFilter('UT Austin', this.state.category, null, 
+      function(response) {
+        // console.log('Response');
+        // console.dir(response);
+        _this.setState({
+          'listings': response
+        });
+      },
+      function() {
+        console.error('Failed to get listings for category: ' + this.state.category.toString());
+      }
+    );
   }
 
   render() {
+    var listings = new Array();
+    var key = 0;
+    for (let listing of this.state.listings) {
+      listings.push(
+        <ListGroupItem 
+          onClick={function() {window.location.href = '/listing?id=' + listing.id.toString();}}
+          key={key++}
+        >
+          <span>
+            <span className={'text-info'}>{listing.title}</span>
+            {' '}
+            <span style={{'maxWidth': '80%', 'fontSize': '10px'}} className={'text-muted'}>{listing.description}</span>
+          </span>
+        </ListGroupItem>
+      );
+    }
     return (
       <div>
-        <ListGroup>
-          {this.state.listings}
+        <ListGroup style={{'maxHeight': '450px', 'overflowY': 'scroll', 'boxShadow': '3px 5px 5px 5px #95a5a6'}}>
+          {listings}
         </ListGroup>
       </div>
     );

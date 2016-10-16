@@ -2,11 +2,13 @@
 
 const React = require('react');
 const {Modal, Button, Form, FormGroup, ControlLabel, HelpBlock,
-  FormControl, ListGroupItem, ListGroup} = require('react-bootstrap');
+  FormControl, ListGroupItem, ListGroup, MenuItem, DropdownButton} = require('react-bootstrap');
 
 const utils = require('../../../utils/utils.js');
 const FailModal = require('./FailModal.js');
 const SuccessModal = require('./SuccessModal.js');
+
+const categories = require('../category/Categories.js');
 
 class NewListingModal extends React.Component {
   constructor(props) {
@@ -100,9 +102,9 @@ class NewListingModal extends React.Component {
     });
   }
 
-  updateCategory(e) {
+  updateCategory(value) {
     this.setState({
-      'category': e.target.value
+      'category': value
     });
   }
 
@@ -183,6 +185,25 @@ class NewListingModal extends React.Component {
       );
       this.imageSlotKey++;
     }
+    var _this = this;
+
+    var menuItems = new Array();
+    var key = 0;
+    for (let category of categories) {
+      category = category.substr(0, 1).toUpperCase() + category.substr(1);
+      menuItems.push(
+        <MenuItem 
+          eventKey={key}
+          key={key++}
+          id={category}
+          onSelect={function() {
+            _this.updateCategory(category);
+          }}
+        >
+          {category}
+        </MenuItem>
+      );
+    }
 
     return(
       <Modal show={this.state.showModal}>
@@ -205,12 +226,9 @@ class NewListingModal extends React.Component {
           </FormGroup>
           <FormGroup>
             <ControlLabel>{'Category'}</ControlLabel>
-            <FormControl
-              type="text"
-              value={this.state.category || ''}
-              placeholder={'Category'}
-              onChange={this.updateCategory}
-            />
+            <DropdownButton title={this.state.category || 'Select Category'} id={'Select Category'}>
+              {menuItems}
+            </DropdownButton>
             <HelpBlock>{'Category that this listing can be found under'}</HelpBlock>
           </FormGroup>
           <FormGroup>
