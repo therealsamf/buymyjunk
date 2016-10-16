@@ -102,5 +102,6 @@ var getPostById = function(id, school, success, fail) {
 }
 
 module.exports = {
-    'defaultGetCallback': defaultGetCallback
+    'defaultGetCallback': defaultGetCallback,
+    'getPostById': getPostById
 }
