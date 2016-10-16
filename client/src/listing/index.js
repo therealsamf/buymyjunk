@@ -34,6 +34,7 @@ class Listing extends React.Component {
       }, 
       function() {
         console.log('Failed');
+        
       }
     );
     // this.setState({

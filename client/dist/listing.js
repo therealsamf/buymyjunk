@@ -40295,7 +40295,7 @@
 	var callGetResponse = function callGetResponse(url, success, fail) {
 	    var http = new XMLHttpRequest();
 	    http.open("GET", url, true);
-
+	    console.log('URL: ' + url);
 	    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
 	    http.onreadystatechange = defaultGetCallback(http, success, fail);
