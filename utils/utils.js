@@ -4,7 +4,7 @@ var defaultGetCallback = function(http, success, fail) {
         console.log(http);
         if(http.readyState == 4 && http.status == 200) {
             success(JSON.parse(http.response));
-        }else {
+        }else if(http.readyState == 4) {
             fail();
         }
     }
