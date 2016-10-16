@@ -3,7 +3,7 @@ var defaultGetCallback = function(http, success, fail) {
         http = http.originalTarget;
         console.log(http);
         if(http.readyState == 4 && http.status == 200) {
-            success(http.response);
+            success(JSON.parse(http.response));
         }else {
             fail();
         }
@@ -44,7 +44,7 @@ var storeUUID = function(UUID, success, fail) {
         + UUID, success, fail);
 };
 
-var deleteUUID = function(UUID, success, fail) {
+var verifyUUID = function(UUID, success, fail) {
     callGetResponse("http://www.danielloera.co/buymyjunk/delete_uuid.php?code="
         + UUID, success, fail);
 };
@@ -96,11 +96,10 @@ var addPost = function(id, school, username, title, description, category, tags,
     callGetResponse(url, succes, fail);
 };
 
-addPost(123, "UT Austin", "danny", "Buy my Shit", "please.", "Books", 
-    ["geography", "science"],
-    ["google.com", "yahoo.com", "bing.com"],
-    function(thing){},
-    function(){});
+var getPostById = function(id, school, success, fail) {
+    callGetResponse("www.danielloera.co/buymyjunk/get_post_id.php?id=" + id + "&school=" + school,
+        success, fail);
+}
 
 module.exports = {
     'defaultGetCallback': defaultGetCallback,
