@@ -15,6 +15,12 @@ class CategoryPage extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this.setState({
+      'category': 'texbooks'
+    })
+  }
+
   render() {
     return (
       <div>
