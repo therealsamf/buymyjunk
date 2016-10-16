@@ -1,5 +1,8 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'run', 'client-complile' ]
+1 verbose cli [ '/usr/bin/nodejs',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'run-script',
+1 verbose cli   'client-complile' ]
 2 info using npm@2.15.9
 3 info using node@v4.6.0
 4 verbose stack Error: missing script: client-complile
@@ -14,7 +17,7 @@
 4 verbose stack     at FSReqWrap.readFileAfterClose [as oncomplete] (fs.js:380:3)
 5 verbose cwd /home/nathan/buymyjunk
 6 error Linux 4.4.0-42-generic
-7 error argv "/usr/bin/nodejs" "/usr/bin/npm" "run" "client-complile"
+7 error argv "/usr/bin/nodejs" "/usr/bin/npm" "run-script" "client-complile"
 8 error node v4.6.0
 9 error npm  v2.15.9
 10 error missing script: client-complile

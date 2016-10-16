@@ -40605,6 +40605,10 @@
 
 	var utils = __webpack_require__(430);
 
+	var FailModal = __webpack_require__(435);
+
+	var SucessModal = __webpack_require__(436);
+
 	var LoginModal = function (_React$Component) {
 	  _inherits(LoginModal, _React$Component);
 
@@ -40617,11 +40621,14 @@
 	      'showModal': false,
 	      'authenticate': false,
 	      'verfiy': false,
-	      'email': ''
+	      'email': '',
+	      'verifyCode': '',
+	      'UUID': utils.getUUID
 	    };
 	    _this.open = _this.open.bind(_this);
 	    _this.close = _this.close.bind(_this);
 	    _this.handleChange = _this.handleChange.bind(_this);
+	    _this.changeVerify = _this.changeVerify.bind(_this);
 	    _this.auth = _this.auth.bind(_this);
 	    return _this;
 	  }
@@ -40632,13 +40639,32 @@
 	      if (!this.state.authenticate && utils.validEmail(this.state.email)) {
 	        console.log("authenticated");
 	        this.setState({ 'authenticate': true });
+
+	        var fail = function fail() {
+	          this.refs.FailModal;
+	          this.refs.FailModal.open;
+	          setTimeout(this.refs.FailModal, 300);
+	          this.refs.FailModal.close;
+	        };
+
+	        var success = function success() {
+	          this.refs.FailModal;
+	          this.refs.FailModal.open;
+	        };
+
+	        utils.emailUUID(this.state.email, '', this.state.UUID);
+	        utils.storeUUID(this.state.UUID, { success: success }, { fail: fail });
 	      }
 	    }
 	  }, {
 	    key: 'handleChange',
 	    value: function handleChange(event) {
 	      this.state.email = event.target.value;
-	      console.log(this.state.email);
+	    }
+	  }, {
+	    key: 'changeVerify',
+	    value: function changeVerify(event) {
+	      this.state.verifyCode = event.target.value;
 	    }
 	  }, {
 	    key: 'open',
@@ -40664,6 +40690,7 @@
 	      return React.createElement(
 	        Modal,
 	        { show: this.state.showModal },
+	        React.createElement(FailModal, { ref: 'FailModal' }),
 	        React.createElement(
 	          Modal.Header,
 	          null,
@@ -40705,7 +40732,7 @@
 	              React.createElement(
 	                Col,
 	                { sm: 10 },
-	                React.createElement(FormControl, { type: 'email', placeholder: 'Verifcation Code', disabled: !this.state.authenticate }),
+	                React.createElement('input', { type: 'txt', value: this.state.value, onChange: this.verifyCode }),
 	                React.createElement(
 	                  Button,
 	                  { bsStyle: 'primary', disabled: !this.state.authenticate },
@@ -40862,8 +40889,199 @@
 
 	module.exports = {
 	    'defaultGetCallback': defaultGetCallback,
-	    'validEmail': validEmail
+	    'validEmail': validEmail,
+	    'emailUUID': emailUUID,
+	    'storeUUID': storeUUID,
+	    'verifyUUID': verifyUUID
 	};
+
+/***/ },
+/* 431 */,
+/* 432 */,
+/* 433 */,
+/* 434 */,
+/* 435 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var React = __webpack_require__(1);
+
+	var _require = __webpack_require__(172);
+
+	var Modal = _require.Modal;
+	var Button = _require.Button;
+
+	var FailModal = function (_React$Component) {
+	  _inherits(FailModal, _React$Component);
+
+	  function FailModal(props) {
+	    _classCallCheck(this, FailModal);
+
+	    var _this = _possibleConstructorReturn(this, (FailModal.__proto__ || Object.getPrototypeOf(FailModal)).call(this, props));
+
+	    _this.state = {
+	      'showModal': false
+	    };
+	    return _this;
+	  }
+
+	  _createClass(FailModal, [{
+	    key: 'open',
+	    value: function open() {
+	      if (!this.state.showModal) {
+	        this.setState({
+	          'showModal': true
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'close',
+	    value: function close() {
+	      if (this.state.showModal) {
+	        this.setState({
+	          'showModal': false
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        Modal,
+	        { show: this.state.showModal },
+	        React.createElement(FailModal, { ref: 'FailModal' }),
+	        React.createElement(
+	          Modal.Header,
+	          null,
+	          React.createElement(Modal.Title, null)
+	        ),
+	        React.createElement(
+	          Modal.Body,
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'failed'
+	          )
+	        ),
+	        React.createElement(
+	          Modal.Footer,
+	          null,
+	          React.createElement(
+	            Button,
+	            { onClick: this.close },
+	            'Close'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return FailModal;
+	}(React.Component);
+
+	module.exports = FailModal;
+
+/***/ },
+/* 436 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var React = __webpack_require__(1);
+
+	var _require = __webpack_require__(172);
+
+	var Modal = _require.Modal;
+	var Button = _require.Button;
+
+	var SuccessModal = function (_React$Component) {
+	  _inherits(SuccessModal, _React$Component);
+
+	  function SuccessModal(props) {
+	    _classCallCheck(this, SuccessModal);
+
+	    var _this = _possibleConstructorReturn(this, (SuccessModal.__proto__ || Object.getPrototypeOf(SuccessModal)).call(this, props));
+
+	    _this.state = {
+	      'showModal': false
+	    };
+	    return _this;
+	  }
+
+	  _createClass(SuccessModal, [{
+	    key: 'open',
+	    value: function open() {
+	      if (!this.state.showModal) {
+	        this.setState({
+	          'showModal': true
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'close',
+	    value: function close() {
+	      if (this.state.showModal) {
+	        this.setState({
+	          'showModal': false
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        Modal,
+	        { show: this.state.showModal },
+	        React.createElement(FailModal, { ref: 'FailModal' }),
+	        React.createElement(
+	          Modal.Header,
+	          null,
+	          React.createElement(Modal.Title, null)
+	        ),
+	        React.createElement(
+	          Modal.Body,
+	          null,
+	          React.createElement(
+	            'b',
+	            null,
+	            'verified'
+	          )
+	        ),
+	        React.createElement(
+	          Modal.Footer,
+	          null,
+	          React.createElement(
+	            Button,
+	            { onClick: this.close },
+	            'Close'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return SuccessModal;
+	}(React.Component);
+
+	module.exports = SuccessModal;
 
 /***/ }
 /******/ ]);
