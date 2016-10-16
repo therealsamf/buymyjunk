@@ -20,11 +20,12 @@ class Description extends React.Component {
     }
     return (
       <div style={{
-        'boxShadow': '5px 5px 5px 5px #888888', 
+        'boxShadow': '3px 5px 5px 5px #95a5a6', 
         'paddingLeft': '2px', 
         'paddingBottom': '5px',
         'overflowY': 'scroll',
-        'maxHeight': '400' + 'px'
+        'maxHeight': '400' + 'px',
+        'backgroundColor': '#ecf0f1'
       }}>
         {this.props.text}
         <span><span><h6>{'Tags: '}</h6></span>{tags}</span>

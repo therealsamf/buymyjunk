@@ -1,6 +1,7 @@
 //Logo.js//
 
 const React = require('react');
+const {Jumbotron} = require('react-bootstrap');
 
 class Logo extends React.Component {
   constructor(props) {
@@ -11,7 +12,21 @@ class Logo extends React.Component {
   }
 
   render() {
-    return(<div></div>);
+    return(
+      <div>
+        <Jumbotron 
+          style={{
+            'fontSize': '20px', 
+            'fontWeight': 'bold', 
+            'maxHeight': '120px', 
+            'backgroundColor': '#ecf0f1',
+            
+          }}
+        >
+          {'Buy My Junk!'}
+        </Jumbotron>
+      </div>
+    );
   }
 }
 

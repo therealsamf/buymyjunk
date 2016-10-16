@@ -33,7 +33,7 @@ class ImageList extends React.Component {
     }
 
     return (
-      <div style={{'maxHeight': screen.height}}>
+      <div style={{'maxHeight': screen.height, 'boxShadow': '3px 5px 5px 5px #95a5a6'}}>
         <ListGroup style={{'maxHeight': '450px', 'overflowY': 'scroll'}}>
           {images}
         </ListGroup>

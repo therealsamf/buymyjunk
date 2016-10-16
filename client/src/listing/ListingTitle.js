@@ -12,8 +12,12 @@ class ListingTitle extends React.Component {
 
   render() {
     return (
-      <div>
-        <h2>{this.state.value}</h2>
+      <div style={{
+        'backgroundColor': '#ecf0f1',
+        'borderRadius': '5px',
+      }}
+        >
+        <h2 style={{'padding': '3px'}}>{this.state.value}</h2>
       </div>
     );
   }

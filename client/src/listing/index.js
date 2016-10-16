@@ -44,7 +44,7 @@ class Listing extends React.Component {
 
   render() {
     return (
-      <Grid>
+      <Grid style={{'backgroundColor': '#27ae60'}}>
         <Col  md={3}>
           <Logo />
           <ImageList imageURLS={this.state.imageURLS} />
@@ -53,7 +53,7 @@ class Listing extends React.Component {
           <ListingTitle style={{'marginTop': '25%'}} value={this.state.title} />
           <Description text={this.state.description} tags={this.state.tags} />
         </Col>
-        <Col md={3}>{'&nbsp'}</Col>
+        <Col md={3}></Col>
       </Grid>
     );
   }
