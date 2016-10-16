@@ -49,7 +49,6 @@ class HomePage extends React.Component {
                 <FormControl type="password" placeholder="Password" />
               </Col>
             </FormGroup>
-
             <FormGroup>
               <Col smOffset={2} sm={10}>
                 <Checkbox>Remember me</Checkbox>
