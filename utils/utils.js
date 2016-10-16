@@ -56,5 +56,6 @@ var addPost = function(id, school, username, title, description, category, tags,
 
 
 module.exports = {
-    'defaultGetCallback': defaultGetCallback
+    'defaultGetCallback': defaultGetCallback,
+    'validEmail': validEmail
 }

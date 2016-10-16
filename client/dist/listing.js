@@ -66,10 +66,10 @@
 
 	//user imports
 
-	var ImageList = __webpack_require__(429);
-	var ListingTitle = __webpack_require__(430);
-	var Description = __webpack_require__(431);
-	var Logo = __webpack_require__(432);
+	var ImageList = __webpack_require__(431);
+	var ListingTitle = __webpack_require__(432);
+	var Description = __webpack_require__(433);
+	var Logo = __webpack_require__(434);
 
 	var Listing = function (_React$Component) {
 	  _inherits(Listing, _React$Component);
@@ -40427,7 +40427,9 @@
 /* 426 */,
 /* 427 */,
 /* 428 */,
-/* 429 */
+/* 429 */,
+/* 430 */,
+/* 431 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40508,7 +40510,7 @@
 	module.exports = ImageList;
 
 /***/ },
-/* 430 */
+/* 432 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40566,7 +40568,7 @@
 	module.exports = ListingTitle;
 
 /***/ },
-/* 431 */
+/* 433 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40676,7 +40678,7 @@
 	module.exports = Description;
 
 /***/ },
-/* 432 */
+/* 434 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

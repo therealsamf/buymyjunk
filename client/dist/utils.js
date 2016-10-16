@@ -95,7 +95,8 @@
 	var addPost = function addPost(id, school, username, title, description, category, tags, images, success, fail) {};
 
 	module.exports = {
-	    'defaultGetCallback': defaultGetCallback
+	    'defaultGetCallback': defaultGetCallback,
+	    'validEmail': validEmail
 	};
 
 /***/ }
