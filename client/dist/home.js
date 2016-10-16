@@ -40113,8 +40113,12 @@
 	var FormControl = _require.FormControl;
 	var FormGroup = _require.FormGroup;
 	var ControlLabel = _require.ControlLabel;
+	var ToDo = _require.ToDo;
 	var Form = _require.Form;
 	var Button = _require.Button;
+
+
+	var utils = __webpack_require__(410);
 
 	var LoginModal = function (_React$Component) {
 	  _inherits(LoginModal, _React$Component);
@@ -40125,15 +40129,33 @@
 	    var _this = _possibleConstructorReturn(this, (LoginModal.__proto__ || Object.getPrototypeOf(LoginModal)).call(this, props));
 
 	    _this.state = {
-	      'showModal': false
+	      'showModal': false,
+	      'authenticate': false,
+	      'verfiy': false,
+	      'email': ''
 	    };
-
 	    _this.open = _this.open.bind(_this);
 	    _this.close = _this.close.bind(_this);
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    _this.auth = _this.auth.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(LoginModal, [{
+	    key: 'auth',
+	    value: function auth() {
+	      if (!this.state.authenticate && utils.validEmail(this.state.email)) {
+	        console.log("authenticated");
+	        this.setState({ 'authenticate': true });
+	      }
+	    }
+	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      this.state.email = event.target.value;
+	      console.log(this.state.email);
+	    }
+	  }, {
 	    key: 'open',
 	    value: function open() {
 	      if (!this.state.showModal) {
@@ -40167,10 +40189,10 @@
 	          null,
 	          React.createElement(
 	            Form,
-	            { horizontal: true, style: { 'textAlign': 'center', 'marginRight': '15%' } },
+	            { horizontal: true, style: { 'textAlign': 'center', 'marginRight': '35%' } },
 	            React.createElement(
 	              FormGroup,
-	              { controlId: 'formHorizontalEmail' },
+	              { controlId: "formHorizontalEmail" },
 	              React.createElement(
 	                Col,
 	                { componentClass: ControlLabel, sm: 2 },
@@ -40178,8 +40200,13 @@
 	              ),
 	              React.createElement(
 	                Col,
-	                { sm: 10 },
-	                React.createElement(FormControl, { type: 'email', placeholder: 'Email' })
+	                { sm: 8 },
+	                React.createElement('input', { type: 'txt', value: this.state.value, onChange: this.handleChange }),
+	                React.createElement(
+	                  Button,
+	                  { bsStyle: 'primary', onClick: this.auth.bind(this) },
+	                  'Authenticate'
+	                )
 	              )
 	            ),
 	            React.createElement(
@@ -40193,7 +40220,12 @@
 	              React.createElement(
 	                Col,
 	                { sm: 10 },
-	                React.createElement(FormControl, { type: 'email', placeholder: 'Verifcation Code' })
+	                React.createElement(FormControl, { type: 'email', placeholder: 'Verifcation Code', disabled: !this.state.authenticate }),
+	                React.createElement(
+	                  Button,
+	                  { bsStyle: 'primary', disabled: !this.state.authenticate },
+	                  'Verify'
+	                )
 	              )
 	            ),
 	            React.createElement(
@@ -40206,7 +40238,7 @@
 	              ),
 	              React.createElement(
 	                Col,
-	                { sm: 10 },
+	                { sm: 10, disabled: 'true' },
 	                React.createElement(FormControl, { type: 'email', placeholder: 'Username' })
 	              )
 	            ),
@@ -40248,6 +40280,110 @@
 	}(React.Component);
 
 	module.exports = LoginModal;
+
+/***/ },
+/* 406 */,
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	var defaultGetCallback = function defaultGetCallback(http, success, fail) {
+	    return function (http) {
+	        http = http.originalTarget;
+	        console.log(http);
+	        if (http.readyState == 4 && http.status == 200) {
+	            success(JSON.parse(http.response));
+	        } else {
+	            fail();
+	        }
+	    };
+	};
+
+	var callGetResponse = function callGetResponse(url, success, fail) {
+	    var http = new XMLHttpRequest();
+	    http.open("GET", url, true);
+	    console.log('URL: ' + url);
+	    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	    http.onreadystatechange = defaultGetCallback(http, success, fail);
+	    http.send(null);
+	};
+
+	var validEmail = function validEmail(email) {
+	    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	    return re.test(email) && email.endsWith('edu');
+	};
+
+	var getUUID = function getUUID() {
+	    function randomNum() {
+	        return Math.floor((1 + Math.random()) * 0x1000000000).toString(16).substring(1);
+	    }
+	    return randomNum();
+	};
+
+	var emailUUID = function emailUUID(email, name, UUID) {
+	    emailjs.send("default_service", "buymyjunk", { code: UUID, name: name, to: email });
+	};
+
+	var storeUUID = function storeUUID(UUID, success, fail) {
+	    callGetResponse("http://www.danielloera.co/buymyjunk/add_uuid.php?code=" + UUID, success, fail);
+	};
+
+	var verifyUUID = function verifyUUID(UUID, success, fail) {
+	    callGetResponse("http://www.danielloera.co/buymyjunk/delete_uuid.php?code=" + UUID, success, fail);
+	};
+
+	var percentEncode = function percentEncode(string) {
+	    string = string.split(" ").join("%20");
+	    string = string.split("&").join("%26");
+	    return string.split("=").join("%3D");
+	};
+
+	var percentDecode = function percentDecode(string) {
+	    string = string.split("%20").join(" ");
+	    string = string.split("%26").join("&");
+	    return string.split("%3D").join("=");
+	};
+
+	/**
+	 * @param {string} id
+	 * @param {string} school
+	 * @param {string} username
+	 * @param {string} title
+	 * @param {string} decription
+	 * @param {string} category
+	 * @param {array} tags
+	 * @param {array} images
+	 * @param {function} success
+	 * @param {function} fail 
+	 */
+	var addPost = function addPost(id, school, username, title, description, category, tags, images, success, fail) {
+	    var url = "http://www.danielloera.co/buymyjunk/add_post.php?id=" + id + "&school=" + percentEncode(school) + "&username=" + percentEncode(username) + "&title=" + percentEncode(title) + "&desc=" + percentEncode(description) + "&cat=" + category + "&tc=" + tags.length + "&ic=" + images.length;
+
+	    for (var i = 0; i < tags.length; i++) {
+	        url += "&t" + i + "=" + tags[i];
+	    }
+
+	    for (var i = 0; i < images.length; i++) {
+	        url += "&i" + i + "=" + images[i];
+	    }
+
+	    callGetResponse(url, succes, fail);
+	};
+
+	var getPostById = function getPostById(id, school, success, fail) {
+	    callGetResponse("www.danielloera.co/buymyjunk/get_post_id.php?id=" + id + "&school=" + school, success, fail);
+	};
+
+	module.exports = {
+	    'defaultGetCallback': defaultGetCallback,
+	    'getPostById': getPostById,
+	    'validEmail': validEmail
+	};
 
 /***/ }
 /******/ ]);
