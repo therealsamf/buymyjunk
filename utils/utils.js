@@ -17,7 +17,10 @@ var defaultGetCallback = function(http, success, fail) {
 var callGetResponse = function(url, success, fail) {
     var http = new XMLHttpRequest();
     http.open("GET", url, true);
+<<<<<<< HEAD
     // console.log('URL: ' + url);
+=======
+>>>>>>> cat
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     
     http.onreadystatechange = defaultGetCallback(
@@ -105,6 +108,10 @@ var getPostById = function(id, school, success, fail) {
         success, fail);
 }
 
+var getPostsByFilter = function(school, category, tags, success, fail) {
+    
+}
+
 module.exports = {
     'defaultGetCallback': defaultGetCallback,
     'validEmail': validEmail,
@@ -114,3 +121,4 @@ module.exports = {
     'getUUID': getUUID,
     'getPostById': getPostById
 }
+
