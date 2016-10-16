@@ -123,26 +123,28 @@ class LoginModal extends React.Component {
           <Modal.Title></Modal.Title>
         </Modal.Header>
         <Modal.Body>
-              <Form horizontal style={{'textAlign': 'center', 'marginRight': '35%'}}>
+              <Form horizontal style={{'textAlign': 'center', 'marginRight': '15%'}}>
                  <FormGroup controlId={"formHorizontalEmail"}>
-                    <Col componentClass={ControlLabel} sm={2}>
+                    <Col componentClass={ControlLabel} sm={1}>
                        Email
                     </Col>
                     <Col sm={8}>
                         <input type="txt" value={this.state.value} onChange={this.handleChange}> 
                         </input>
+                        {'         '}
                       <Button bsStyle={'primary'} onClick={this.auth.bind(this)}>
                           Authenticate
                        </Button>
                     </Col>  
                   </FormGroup>
                    <FormGroup controlId="formHorizontalEmail">
-                    <Col componentClass={ControlLabel} sm={2}>
+                    <Col componentClass={ControlLabel} sm={1}>
                        Verify
                     </Col>
-                    <Col sm={10}>
+                    <Col sm={8}>
                       <input type="txt" value={this.state.value} onChange={this.changeVerify}> 
                         </input>
+                          {'     '}
                       <Button bsStyle={'primary'} disabled={false/*!this.state.authenticate*/} onClick={this.verify.bind(this)}>
                           Verify
                        </Button>  
