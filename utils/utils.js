@@ -101,7 +101,7 @@ var getPostById = function(id, school, success, fail) {
 }
 
 var getPostsByFilter = function(school, category, tags, success, fail) {
-
+    
 }
 
 module.exports = {
