@@ -26,3 +26,5 @@ class ListingList extends React.Component {
     );
   }
 }
+
+module.exports = ListingList;

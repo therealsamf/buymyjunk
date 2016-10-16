@@ -7,7 +7,7 @@ class CategoryList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      'categories': null
+      'categories': new Array()
     };
   }
 
