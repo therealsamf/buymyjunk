@@ -14,9 +14,9 @@ function startServer() {
   var app = Express();
   var serv = require('http').Server(app);
 
-  /*{ app.get('/category', function(req, res) {
-     res.sendFile(Path.resolve(__dirname,'../../', 'client/dist/category/index.html'));
-   });}*/
+  app.get('/category', function (req, res) {
+    res.sendFile(Path.resolve(__dirname, '../../', 'client/dist/category/index.html'));
+  });
 
   app.get('/listing', function (req, res) {
     res.sendFile(Path.resolve(__dirname, '../../', 'client/dist/listing/index.html'));

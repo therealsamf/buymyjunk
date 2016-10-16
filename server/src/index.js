@@ -15,7 +15,7 @@ function startServer() {
   var app = Express();
   var serv = require('http').Server(app);
 
- { app.get('/category', function(req, res) {
+  app.get('/category', function(req, res) {
     res.sendFile(Path.resolve(__dirname,'../../', 'client/dist/category/index.html'));
   });
 
@@ -36,5 +36,3 @@ function startServer() {
 module.exports = {
   'startServer': startServer
 }
-
-
