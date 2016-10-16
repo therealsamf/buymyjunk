@@ -17,10 +17,6 @@ var defaultGetCallback = function(http, success, fail) {
 var callGetResponse = function(url, success, fail) {
     var http = new XMLHttpRequest();
     http.open("GET", url, true);
-<<<<<<< HEAD
-    // console.log('URL: ' + url);
-=======
->>>>>>> cat
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     
     http.onreadystatechange = defaultGetCallback(
@@ -109,7 +105,18 @@ var getPostById = function(id, school, success, fail) {
 }
 
 var getPostsByFilter = function(school, category, tags, success, fail) {
-    
+    var url = "www.danielloera.co/buymyjunk/get_post_filter.php?school=" + school;
+    if(category !== null) {
+        url += "&cat=" + category;
+    }
+
+    if(tags != null) {
+        url+= "&tc=" + tags.length;
+        for(var i = 0; i < tags.length; i++) {
+            url += "&t" + i + "=" + tags[i]; 
+        }
+    }
+    callGetResponse(url, success, fail);
 }
 
 module.exports = {
