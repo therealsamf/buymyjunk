@@ -6,6 +6,8 @@ module.exports = {
     'home': __dirname + '/client/src/home/index.js',
     'listing': __dirname + '/client/src/listing/index.js',
     'category': __dirname + '/client/src/category/index.js',
+    //for testing utils
+    //'utils': __dirname + '/utils/utils.js'
   },
   output: {
     path: __dirname + '/client/dist/',

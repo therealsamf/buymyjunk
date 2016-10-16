@@ -1,10 +1,9 @@
+var sha256 = require('sha256');
+
 var defaultGetCallback = function(http, success, fail) {
     return function(http) {
         http = http.currentTarget;
-        // console.log(http);
         if(http.readyState == 4 && http.status == 200) {
-            console.log('Response');
-            console.dir(http.response);
 
             var body = JSON.parse(JSON.parse(http.response).body);
             success(body);
@@ -17,7 +16,6 @@ var defaultGetCallback = function(http, success, fail) {
 var callGetResponse = function(url, success, fail) {
     var http = new XMLHttpRequest();
     http.open("GET", url, true);
-    // console.log('URL: ' + url);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     
     http.onreadystatechange = defaultGetCallback(
@@ -103,7 +101,46 @@ var addPost = function(id, school, username, title, description, category, tags,
 var getPostById = function(id, school, success, fail) {
     callGetResponse("www.danielloera.co/buymyjunk/get_post_id.php?id=" + id + "&school=" + school,
         success, fail);
-}
+};
+
+var getPostsByFilter = function(school, category, tags, success, fail) {
+    var url = "www.danielloera.co/buymyjunk/get_post_filter.php?school=" + school;
+    if(category !== null) {
+        url += "&cat=" + category;
+    }
+
+    if(tags != null) {
+        url+= "&tc=" + tags.length;
+        for(var i = 0; i < tags.length; i++) {
+            url += "&t" + i + "=" + tags[i]; 
+        }
+    }
+    callGetResponse(url, success, fail);
+};
+
+var addUser = function(username, password, email, school,
+    success, fail) {
+    //please please NEVER delete this line for user safety.
+    var hashedPassword = sha256(password);
+     callGetResponse("www.danielloera.co/buymyjunk/add_user.php?username="
+        + percentEncode(username) +
+        "&password=" + hashedPassword +
+        "&email=" + email + 
+        "&school=" + percentEncode(school),
+        success,
+        fail);
+
+};
+
+var login = function(username, password, success, fail) {
+    //please please NEVER delete this line for user safety.
+    var hashedPassword = sha256(password);
+     callGetResponse("www.danielloera.co/buymyjunk/add_user.php?username="
+        + percentEncode(username) +
+        "&password=" + hashedPassword,
+        success,
+        fail);
+};
 
 module.exports = {
     'defaultGetCallback': defaultGetCallback,
