@@ -87,7 +87,7 @@ var addPost = function(id, school, username, title, description, category, tags,
     "&desc="  + percentEncode(description)  +
     "&cat="+ category +
     "&tc=" + tags.length +
-    "&ic=" + images.length ;
+    "&ic=" + images.length;
 
     for(var i = 0; i < tags.length; i++) {
         url+= "&t" + i + "=" + tags[i];
@@ -97,7 +97,7 @@ var addPost = function(id, school, username, title, description, category, tags,
         url+= "&i" + i + "=" + images[i];
     }
 
-    callGetResponse(url, succes, fail);
+    callGetResponse(url, success, fail);
 };
 
 var getPostById = function(id, school, success, fail) {
@@ -110,7 +110,9 @@ module.exports = {
     'validEmail': validEmail,
     'emailUUID': emailUUID,
     'storeUUID': storeUUID,
+    'getUUID': getUUID,
     'verifyUUID': verifyUUID,
     'getUUID': getUUID,
-    'getPostById': getPostById
+    'getPostById': getPostById,
+    'addPost': addPost
 }

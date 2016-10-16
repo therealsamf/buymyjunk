@@ -9,6 +9,7 @@ const {Jumbotron, FormGroup, ControlLabel, HelpBlock, FormControl,
 const Styles = require('./style.js');
 
 const LoginModal = require('./LoginModal.js');
+const NewListingModal = require('./NewListingModal.js');
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -66,12 +67,20 @@ class HomePage extends React.Component {
                     _this.refs.LoginModal.open();
                   }
                 }}>
-                    Sign Up
-                </Button>         
+                  Sign Up
+                </Button>
+                <Button bsStyle={'info'} onClick={function() {
+                  if (_this.refs.NewListingModal) {
+                    _this.refs.NewListingModal.open();
+                  }
+                }}>
+                  {'New Listing!'}
+                </Button>        
               </Col>
             </FormGroup>
           </Form>
           <LoginModal ref={'LoginModal'} />
+          <NewListingModal ref={'NewListingModal'} />
           <h2>Items Sold</h2>
           <span>
             <ul >
