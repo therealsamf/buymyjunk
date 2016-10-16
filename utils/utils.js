@@ -105,13 +105,9 @@ var getPostById = function(id, school, success, fail) {
 
 module.exports = {
     'defaultGetCallback': defaultGetCallback,
-<<<<<<< HEAD
     'validEmail': validEmail,
     'emailUUID': emailUUID,
     'storeUUID': storeUUID,
-    'verifyUUID': verifyUUID
-=======
-    'getPostById': getPostById,
-    'validEmail': validEmail
->>>>>>> c2e47aefda2f90f143ff9f232a0a0080b354697e
+    'verifyUUID': verifyUUID,
+    'getPostById': getPostById
 }

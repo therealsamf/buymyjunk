@@ -32,8 +32,7 @@ class Listing extends React.Component {
       function(response) {
         ;
         var post = response.post[0];
-        console.log('Post');
-        console.dir(post)
+        
         _this.setState({
           'description': post.description,
           'tags': [post.tag_1, post.tag_2, post.tag_3, post.tag_4, post.tag_5, post.tag_6, post.tag_7,
