@@ -3,10 +3,12 @@ var defaultGetCallback = function(http, success, fail) {
         http = http.currentTarget;
         // console.log(http);
         if(http.readyState == 4 && http.status == 200) {
-            // console.log('Body: ' + JSON.parse(http.response).body);
+            console.log('Response');
+            console.dir(http.response);
+
             var body = JSON.parse(JSON.parse(http.response).body);
             success(body);
-        }else {
+        }else if(http.readyState == 4) {
             fail();
         }
     }
@@ -42,12 +44,12 @@ var emailUUID = function(email, name, UUID) {
 };
 
 var storeUUID = function(UUID, success, fail) {
-    callGetResponse("http://www.danielloera.co/buymyjunk/add_uuid.php?code="
+    callGetResponse("www.danielloera.co/buymyjunk/add_uuid.php?code="
         + UUID, success, fail);
 };
 
 var verifyUUID = function(UUID, success, fail) {
-    callGetResponse("http://www.danielloera.co/buymyjunk/delete_uuid.php?code="
+    callGetResponse("www.danielloera.co/buymyjunk/delete_uuid.php?code="
         + UUID, success, fail);
 };
 
@@ -77,7 +79,7 @@ var percentDecode = function(string) {
  */
 var addPost = function(id, school, username, title, description, category, tags, images,
         success, fail) {
-    var url = "http://www.danielloera.co/buymyjunk/add_post.php?id=" +
+    var url = "www.danielloera.co/buymyjunk/add_post.php?id=" +
     id +
     "&school=" + percentEncode(school) +
     "&username="  + percentEncode(username) +
@@ -109,5 +111,6 @@ module.exports = {
     'emailUUID': emailUUID,
     'storeUUID': storeUUID,
     'verifyUUID': verifyUUID,
+    'getUUID': getUUID,
     'getPostById': getPostById
 }

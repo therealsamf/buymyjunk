@@ -30,7 +30,7 @@ class Listing extends React.Component {
     var _this = this;
     utils.getPostById(queryString.id, 'UT Austin', 
       function(response) {
-        ;
+
         var post = response.post[0];
         
         _this.setState({
