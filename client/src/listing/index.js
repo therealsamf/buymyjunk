@@ -67,7 +67,7 @@ class Listing extends React.Component {
 
   render() {
     return (
-      <Grid style={{'backgroundColor': '#27ae60'}}>
+      <Grid style={{'backgroundColor': '#27ae60', 'minHeight': screen.height.toString() + 'px'}}>
         <Col  md={3}>
           <Logo />
           <ImageList imageURLS={this.state.imageURLS} />

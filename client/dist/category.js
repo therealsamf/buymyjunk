@@ -65,8 +65,8 @@
 
 
 	var CategoryList = __webpack_require__(401);
-	var CategoryTitle = __webpack_require__(402);
-	var ListingList = __webpack_require__(403);
+	var CategoryTitle = __webpack_require__(403);
+	var ListingList = __webpack_require__(404);
 
 	var CategoryPage = function (_React$Component) {
 	  _inherits(CategoryPage, _React$Component);
@@ -95,7 +95,7 @@
 	    value: function render() {
 	      return React.createElement(
 	        'div',
-	        { style: { 'backgroundColor': '#27ae60' } },
+	        { style: { 'backgroundColor': '#27ae60', 'minHeight': screen.height.toString() + 'px' } },
 	        React.createElement(
 	          Grid,
 	          null,
@@ -39969,7 +39969,7 @@
 	    var _this2 = _possibleConstructorReturn(this, (CategoryList.__proto__ || Object.getPrototypeOf(CategoryList)).call(this, props));
 
 	    _this2.state = {
-	      'categories': __webpack_require__(417)
+	      'categories': __webpack_require__(402)
 	    };
 	    return _this2;
 	  }
@@ -40059,6 +40059,16 @@
 
 /***/ },
 /* 402 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	//Categories.js//
+
+	module.exports = ['books', 'electronics', 'furniture', 'appliances', 'clothing', 'food', 'tickets', 'school', 'other'];
+
+/***/ },
+/* 403 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40116,7 +40126,7 @@
 	module.exports = CategoryTitle;
 
 /***/ },
-/* 403 */
+/* 404 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40139,7 +40149,7 @@
 	var ListGroupItem = _require.ListGroupItem;
 
 
-	var utils = __webpack_require__(406);
+	var utils = __webpack_require__(405);
 
 	var ListingList = function (_React$Component) {
 	  _inherits(ListingList, _React$Component);
@@ -40245,9 +40255,7 @@
 	module.exports = ListingList;
 
 /***/ },
-/* 404 */,
-/* 405 */,
-/* 406 */
+/* 405 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -40256,7 +40264,7 @@
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-	var sha256 = __webpack_require__(407);
+	var sha256 = __webpack_require__(406);
 
 	var defaultGetCallback = function defaultGetCallback(http, success, fail) {
 	    return function (http) {
@@ -40384,7 +40392,7 @@
 	}, _defineProperty(_module$exports, "getUUID", getUUID), _defineProperty(_module$exports, 'getPostById', getPostById), _defineProperty(_module$exports, 'addPost', addPost), _defineProperty(_module$exports, 'addUser', addUser), _defineProperty(_module$exports, 'login', login), _defineProperty(_module$exports, 'getPostsByFilter', getPostsByFilter), _module$exports);
 
 /***/ },
-/* 407 */
+/* 406 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -40396,8 +40404,8 @@
 
 	  if (typeof module !== 'undefined' && module.exports) {
 	    //CommonJS
-	    _imports.bytesToHex = __webpack_require__(408).bytesToHex;
-	    _imports.convertString = __webpack_require__(409);
+	    _imports.bytesToHex = __webpack_require__(407).bytesToHex;
+	    _imports.convertString = __webpack_require__(408);
 	    module.exports = sha256;
 	  } else {
 	    _imports.bytesToHex = globals.convertHex.bytesToHex;
@@ -40544,7 +40552,7 @@
 	}(undefined);
 
 /***/ },
-/* 408 */
+/* 407 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -40598,7 +40606,7 @@
 	}(undefined);
 
 /***/ },
-/* 409 */
+/* 408 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -40636,23 +40644,6 @@
 	    globals.convertString = convertString;
 	  }
 	}(undefined);
-
-/***/ },
-/* 410 */,
-/* 411 */,
-/* 412 */,
-/* 413 */,
-/* 414 */,
-/* 415 */,
-/* 416 */,
-/* 417 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	//Categories.js//
-
-	module.exports = ['books', 'electronics', 'furniture', 'appliances', 'clothing', 'food', 'tickets', 'school', 'other'];
 
 /***/ }
 /******/ ]);

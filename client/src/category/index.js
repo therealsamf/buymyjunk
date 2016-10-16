@@ -25,7 +25,7 @@ class CategoryPage extends React.Component {
 
   render() {
     return (
-      <div style={{'backgroundColor': '#27ae60'}}>
+      <div style={{'backgroundColor': '#27ae60', 'minHeight': screen.height.toString() + 'px'}}>
         <Grid>
           <Col sm={3}>
             <CategoryList />

@@ -28,8 +28,10 @@ class Description extends React.Component {
         'paddingLeft': '2px', 
         'paddingBottom': '5px',
         'overflowY': 'scroll',
+        'minHeight': '400px',
         'maxHeight': '400' + 'px',
-        'backgroundColor': '#ecf0f1'
+        'backgroundColor': '#ecf0f1',
+        'fontSize': '15px'
       }}>
         {this.props.text}
         <span><span><h6>{'Tags: '}</h6></span>{tags}</span>
