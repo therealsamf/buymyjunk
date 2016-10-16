@@ -8,7 +8,12 @@ class ListingTitle extends React.Component {
     this.state = {
       'value': props.value
     };
-    console.log('Value: ' + value);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      'value': nextProps.value
+    });
   }
 
   render() {

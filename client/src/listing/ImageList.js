@@ -14,11 +14,19 @@ class ImageList extends React.Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      'urls': nextProps.imageURLS
+    });
+  }
+
   render() {
+
     var images = new Array();
     if (this.state.urls) {
       for (var i = 0; i < this.state.urls.length; i++) {
         var url = this.state.urls[i];
+        console.log('URL: ' + url);
         if (!url || url.length <= 0)
           continue;
         images.push(
