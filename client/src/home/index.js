@@ -151,7 +151,7 @@ class HomePage extends React.Component {
                     _this.refs.LoginModal.open();
                   }
                 }}>
-                  Sign Up
+                  {'Sign Up'}
                 </Button>
                   {' '}
                 <Button disabled={!this.state.signedIn} bsStyle={'info'} onClick={function() {
